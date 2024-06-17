@@ -1,0 +1,81 @@
+<!-- eslint-disable vue/multi-word-component-names -->
+<template>
+  <v-container class="fill-height">
+    <v-form @submit.prevent="login">
+      <v-row>
+        <v-col>
+          <h1 class="text-center">第一屆夏至盃</h1>
+        </v-col>
+        <v-col cols="12">
+          <v-text-field
+            v-model="name"
+            label="姓名"
+            variant="outlined"
+            bg-color="white"
+            autofocus
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12">
+          <v-text-field
+            v-model="phone"
+            label="手機"
+            variant="outlined"
+            bg-color="white"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12">
+          <v-btn
+            block
+            :color="!name || !phone ? '' : 'blue'"
+            :disabled="!name || !phone"
+            :loading="isLoading"
+            type="submit"
+            >Login</v-btn
+          >
+        </v-col>
+      </v-row>
+    </v-form>
+  </v-container>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      isLoading: false,
+      name: null,
+      phone: null,
+    };
+  },
+  beforeRouteEnter(_to, _from, next) {
+    next(async (vm) => {
+      if (window.localStorage.getItem("token")) {
+        vm.$router.push("/");
+      }
+    });
+  },
+  methods: {
+    async login() {
+      this.isLoading = true;
+      try {
+        const {
+          data: { token },
+        } = await axios.post("http://localhost:3001/login", {
+          name: this.name,
+          phone: this.phone,
+        });
+        window.localStorage.setItem("token", token);
+        this.$router.push("/");
+      } catch (error) {
+        //
+      }
+
+      this.isLoading = false;
+    },
+  },
+};
+</script>
+
+<style></style>
