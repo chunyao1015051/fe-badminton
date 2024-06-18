@@ -75,23 +75,20 @@ export default {
           name: this.name,
           phone: this.phone,
         });
-        if (data === "Invalid credentials") {
-          this.isError = true;
+        window.localStorage.setItem("token", data.token);
+        this.$router.push("/");
+      } catch (error) {
+        const {
+          response: { data, status },
+        } = error;
+        this.isError = true;
+        if (status === 400) {
           this.errorMessage = "姓名或手機輸入錯誤";
           this.isLoading = false;
           return;
         }
-        window.localStorage.setItem("token", data.token);
-        this.$router.push("/");
-      } catch (error) {
-        console.log(error);
-        const {
-          response: {
-            data: { errorResponse },
-          },
-        } = error;
         this.isError = true;
-        this.errorMessage = errorResponse.errmsg;
+        this.errorMessage = data.errorResponse.errmsg;
       }
 
       this.isLoading = false;
