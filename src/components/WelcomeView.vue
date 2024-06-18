@@ -8,9 +8,14 @@
       <v-col cols="12" class="mt-n6">
         <h2 class="text-center">時間：6/25(二) 18:00-20:00</h2>
       </v-col>
-      <v-col cols="12"
-        ><h2 class="text-center">地點：富暘羽球運動中心</h2></v-col
-      >
+      <v-col cols="12">
+        <h2 class="text-center">
+          地點：富暘羽球運動中心
+          <v-btn class="mt-n2" variant="text" icon @click="gotoLocation">
+            <v-icon>mdi-google-maps</v-icon>
+          </v-btn>
+        </h2>
+      </v-col>
       <v-col cols="12"
         ><h4 class="text-center">6/19(三)16:00報名截止</h4></v-col
       >
@@ -64,14 +69,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    gotoLocation() {
+      const url = "https://maps.app.goo.gl/W1V6RPgZBztNZmiC9";
+      window.open(url, "_blank");
+    },
+  },
+};
 </script>
-
-<style lang="sass" scoped>
-// .logo
-//   position: absolute
-//   top: 28%
-//   left: 50%
-//   width: 300px
-//   transform: translateX(-50%)
-</style>
