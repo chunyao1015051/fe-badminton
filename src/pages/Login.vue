@@ -62,7 +62,7 @@ export default {
       try {
         const {
           data: { token },
-        } = await axios.post("http://localhost:3001/login", {
+        } = await axios.post("http://220.135.155.96:3001/login", {
           name: this.name,
           phone: this.phone,
         });

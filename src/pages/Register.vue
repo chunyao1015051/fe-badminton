@@ -81,14 +81,17 @@ export default {
     async register() {
       this.isLoading = true;
       try {
-        const { data } = await axios.post("http://localhost:3001/register", {
-          name: this.name,
-          phone: this.phone,
-          category: this.category,
-          isBringingRacket: this.isBringingRacket,
-          score: 0,
-          group: "A",
-        });
+        const { data } = await axios.post(
+          "http://220.135.155.96:3001/register",
+          {
+            name: this.name,
+            phone: this.phone,
+            category: this.category,
+            isBringingRacket: this.isBringingRacket,
+            score: 0,
+            group: "A",
+          }
+        );
         if (data === "User registered") {
           this.$router.push("/");
         }
