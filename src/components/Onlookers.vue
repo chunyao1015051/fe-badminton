@@ -45,7 +45,7 @@
                 <v-sheet color="transparent"> 目前排名： </v-sheet>
               </v-col>
               <v-col cols="3">
-                <v-btn color="green">送瓜</v-btn>
+                <v-btn color="blue" block>送瓜</v-btn>
               </v-col>
               <v-divider></v-divider>
             </v-row>

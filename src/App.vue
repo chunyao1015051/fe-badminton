@@ -1,13 +1,51 @@
 <template>
   <v-app class="bg">
     <v-main>
-      <router-view />
+      <router-view v-if="!isServerDisconnected" />
+      <template>
+        <div class="text-center pa-4">
+          <v-btn @click="dialog = true"> Open Dialog </v-btn>
+
+          <v-dialog v-model="isServerDisconnected" width="auto" persistent>
+            <v-card
+              max-width="400"
+              prepend-icon="mdi-heart-broken"
+              text="若看到這個訊息，請馬上連絡相關人員！"
+              title="伺服器斷線惹"
+            >
+            </v-card>
+          </v-dialog>
+        </div>
+      </template>
     </v-main>
   </v-app>
 </template>
 
-<script setup>
-//
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      isServerDisconnected: false,
+    };
+  },
+  async created() {
+    await this.connectTest();
+  },
+  methods: {
+    async connectTest() {
+      try {
+        await axios.get(`http://${process.env.SERVER_HOST}/connectTest`);
+      } catch (error) {
+        const { code } = error;
+        if (code === "ERR_NETWORK") {
+          this.isServerDisconnected = true;
+        }
+      }
+    },
+  },
+};
 </script>
 <style lang="sass" scoped>
 .bg
