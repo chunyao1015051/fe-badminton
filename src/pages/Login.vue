@@ -84,6 +84,7 @@ export default {
         window.localStorage.setItem("token", data.token);
         this.$router.push("/");
       } catch (error) {
+        console.log(error);
         const {
           response: {
             data: { errorResponse },
