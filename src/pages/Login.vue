@@ -21,6 +21,7 @@
             label="手機"
             variant="outlined"
             bg-color="white"
+            type="number"
           ></v-text-field>
         </v-col>
         <v-col cols="12">
