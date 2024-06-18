@@ -8,7 +8,7 @@
       <v-col cols="12">
         <v-text-field
           v-model="name"
-          label="姓名"
+          label="姓名(公司常用名)"
           variant="outlined"
           bg-color="white"
           autofocus
