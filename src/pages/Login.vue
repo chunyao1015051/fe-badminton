@@ -95,19 +95,15 @@ export default {
         this.$router.push("/");
       } catch (error) {
         let errorMessage = "";
-        const {
-          code,
-          response: { data, status },
-        } = error;
+        const { code, response } = error;
         this.isError = true;
         if (code === "ERR_NETWORK") {
           errorMessage = "伺服器斷線，趕快聯絡！";
-        }
-        if (status === 400) {
+        } else if (response && response.status === 400) {
           errorMessage = "姓名或手機輸入錯誤";
           this.isLoading = false;
-        } else {
-          errorMessage = data;
+        } else if (response && response.data) {
+          errorMessage = response.data;
         }
 
         this.errorMessage = errorMessage;

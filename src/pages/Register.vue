@@ -137,7 +137,7 @@ export default {
         if (code === "ERR_NETWORK") {
           errorMessage = "伺服器斷線，趕快聯絡！";
         } else if (response) {
-          errorMessage = response.data.errorMessage;
+          errorMessage = response.data;
         }
         this.isError = true;
         this.errorMessage = errorMessage;
