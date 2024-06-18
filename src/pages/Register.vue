@@ -91,7 +91,7 @@ export default {
       this.isLoading = true;
       try {
         const { data } = await axios.post(
-          `http://${process.env.SERVER_HOST}/register`,
+          `http://220.135.155.96:3001/register`,
           {
             name: this.name,
             phone: this.phone,
@@ -104,7 +104,7 @@ export default {
         if (data === "User registered") {
           const {
             data: { token },
-          } = await axios.post(`http://${process.env.SERVER_HOST}/login`, {
+          } = await axios.post(`http://220.135.155.96:3001/login`, {
             name: this.name,
             phone: this.phone,
           });
