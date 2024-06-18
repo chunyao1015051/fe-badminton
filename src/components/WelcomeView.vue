@@ -1,9 +1,10 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <v-container>
+    <div style="height: calc(20vh - 50px)"></div>
     <v-row dense justify="center">
-      <v-col cols="12">
-        <v-img src="/src/assets/title.gif" class="log" width="400" />
+      <v-col class="text-center">
+        <v-img src="/src/assets/title.gif" width="600" inline />
       </v-col>
       <v-col cols="12">
         <h2 class="text-center">時間：6/25(二) 18:00-20:00</h2>
