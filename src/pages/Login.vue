@@ -35,6 +35,15 @@
         </v-col>
       </v-row>
     </v-form>
+    <v-snackbar v-model="isError" :timeout="5000">
+      {{ errorMessage }}
+
+      <template v-slot:actions>
+        <v-btn color="pink" variant="text" @click="isError = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -44,6 +53,8 @@ import axios from "axios";
 export default {
   data() {
     return {
+      isError: false,
+      errorMessage: null,
       isLoading: false,
       name: null,
       phone: null,
@@ -60,16 +71,26 @@ export default {
     async login() {
       this.isLoading = true;
       try {
-        const {
-          data: { token },
-        } = await axios.post("http://220.135.155.96:3001/login", {
+        const { data } = await axios.post("http://220.135.155.96:3001/login", {
           name: this.name,
           phone: this.phone,
         });
-        window.localStorage.setItem("token", token);
+        if (data === "Invalid credentials") {
+          this.isError = true;
+          this.errorMessage = "姓名或手機輸入錯誤";
+          this.isLoading = false;
+          return;
+        }
+        window.localStorage.setItem("token", data.token);
         this.$router.push("/");
       } catch (error) {
-        //
+        const {
+          response: {
+            data: { errorResponse },
+          },
+        } = error;
+        this.isError = true;
+        this.errorMessage = errorResponse.errmsg;
       }
 
       this.isLoading = false;

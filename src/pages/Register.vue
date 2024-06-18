@@ -96,13 +96,11 @@ export default {
           this.$router.push("/");
         }
       } catch (error) {
-        //
         const {
           response: {
             data: { errorResponse },
           },
         } = error;
-        console.log(error);
         this.isError = true;
         this.errorMessage = errorResponse.errmsg;
       }
