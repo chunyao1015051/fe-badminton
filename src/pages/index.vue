@@ -12,7 +12,9 @@
         <rules-description></rules-description>
       </v-tabs-window-item>
 
-      <v-tabs-window-item :value="2"> </v-tabs-window-item>
+      <v-tabs-window-item :value="2">
+        <onlookers></onlookers>
+      </v-tabs-window-item>
 
       <v-tabs-window-item :value="3"> </v-tabs-window-item>
 
@@ -24,8 +26,9 @@
 
 <script>
 import WelcomeView from "@/components/WelcomeView.vue";
+import Onlookers from "@/components/Onlookers.vue";
 export default {
-  components: { WelcomeView },
+  components: { WelcomeView, Onlookers },
   data() {
     return {
       tab: 1,
