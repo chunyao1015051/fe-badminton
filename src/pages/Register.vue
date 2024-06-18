@@ -112,7 +112,6 @@ export default {
           await this.$router.push("/");
         }
       } catch (error) {
-        console.log(error);
         const {
           response: { data },
         } = error;

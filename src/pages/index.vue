@@ -1,7 +1,15 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div v-if="token">
-    <v-tabs v-model="tab" mandatory grow bg-color="white" color="amber">
+    <v-tabs
+      v-model="tab"
+      mandatory
+      grow
+      bg-color="white"
+      color="amber"
+      mobile
+      density="compact"
+    >
       <v-tab :value="1">活動說明</v-tab>
       <v-tab :value="2" disabled>吃瓜民眾</v-tab>
       <v-tab :value="3" disabled>幼幼班賽制</v-tab>
