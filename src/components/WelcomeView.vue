@@ -36,7 +36,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="7">
+      <v-col cols="6">
         <v-btn
           block
           class="mr-3"
@@ -44,6 +44,16 @@
           size="large"
           @click="$router.push('/register')"
           >報名</v-btn
+        >
+      </v-col>
+      <v-col cols="6">
+        <v-btn
+          block
+          class="mr-3"
+          color="blue"
+          size="large"
+          @click="$router.push('/login')"
+          >登入</v-btn
         >
       </v-col>
       <!-- <v-col cols="6">

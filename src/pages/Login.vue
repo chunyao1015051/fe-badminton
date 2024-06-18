@@ -1,10 +1,10 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <v-container class="fill-height">
+  <v-container>
     <v-form @submit.prevent="login">
-      <v-row>
-        <v-col>
-          <h1 class="text-center">第一屆夏至盃</h1>
+      <v-row justify="center">
+        <v-col class="text-center mt-5">
+          <v-img src="/src/assets/title.gif" width="350" inline />
         </v-col>
         <v-col cols="12">
           <v-text-field
