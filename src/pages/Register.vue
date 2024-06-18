@@ -51,7 +51,7 @@
       </v-col>
     </v-row>
 
-    <v-snackbar v-model="isError" :timeout="5000">
+    <v-snackbar v-model="isError" :timeout="5000" location="top">
       {{ errorMessage }}
 
       <template v-slot:actions>
