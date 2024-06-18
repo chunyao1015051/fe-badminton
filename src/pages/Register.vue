@@ -2,8 +2,8 @@
 <template>
   <v-container class="fill-height">
     <v-row>
-      <v-col>
-        <h1 class="text-center">第一屆夏至盃</h1>
+      <v-col class="text-center mt-5">
+        <v-img src="/src/assets/title.gif" width="350" inline />
       </v-col>
       <v-col cols="12">
         <v-text-field
@@ -47,7 +47,9 @@
           @click="register"
           >報名</v-btn
         >
-        <h4 class="text-center pt-2 text-grey">報名後請自行登入</h4>
+        <h4 class="text-center pt-2">
+          報名後請等待6/29(三)抽籤完畢後將開放賽制與吃瓜功能。
+        </h4>
       </v-col>
     </v-row>
 
@@ -89,7 +91,7 @@ export default {
       this.isLoading = true;
       try {
         const { data } = await axios.post(
-          "http://220.135.155.96:3001/register",
+          `http://${process.env.SERVER_HOST}/register`,
           {
             name: this.name,
             phone: this.phone,
@@ -100,7 +102,14 @@ export default {
           }
         );
         if (data === "User registered") {
-          this.$router.push("/");
+          const {
+            data: { token },
+          } = await axios.post(`http://${process.env.SERVER_HOST}/login`, {
+            name: this.name,
+            phone: this.phone,
+          });
+          window.localStorage.setItem("token", token);
+          await this.$router.push("/");
         }
       } catch (error) {
         console.log(error);
