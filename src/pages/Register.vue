@@ -132,11 +132,15 @@ export default {
           await this.$router.push("/");
         }
       } catch (error) {
-        const {
-          response: { data },
-        } = error;
+        let errorMessage = "";
+        const { code, response } = error;
+        if (code === "ERR_NETWORK") {
+          errorMessage = "伺服器斷線，趕快聯絡！";
+        } else if (response) {
+          errorMessage = response.data.errorMessage;
+        }
         this.isError = true;
-        this.errorMessage = data;
+        this.errorMessage = errorMessage;
       }
       this.isLoading = false;
     },

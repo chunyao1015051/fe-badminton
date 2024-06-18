@@ -94,17 +94,23 @@ export default {
         window.localStorage.setItem("token", data.token);
         this.$router.push("/");
       } catch (error) {
+        let errorMessage = "";
         const {
+          code,
           response: { data, status },
         } = error;
         this.isError = true;
-        if (status === 400) {
-          this.errorMessage = "姓名或手機輸入錯誤";
-          this.isLoading = false;
-          return;
+        if (code === "ERR_NETWORK") {
+          errorMessage = "伺服器斷線，趕快聯絡！";
         }
-        this.isError = true;
-        this.errorMessage = data;
+        if (status === 400) {
+          errorMessage = "姓名或手機輸入錯誤";
+          this.isLoading = false;
+        } else {
+          errorMessage = data;
+        }
+
+        this.errorMessage = errorMessage;
       }
 
       this.isLoading = false;
