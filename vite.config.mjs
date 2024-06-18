@@ -35,7 +35,11 @@ export default defineConfig({
       },
     }),
   ],
-  define: { "process.env": {} },
+  define: {
+    "process.env": {
+      SERVER_HOST: "220.135.155.96:3001",
+    },
+  },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),

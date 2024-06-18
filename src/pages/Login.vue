@@ -72,10 +72,13 @@ export default {
     async login() {
       this.isLoading = true;
       try {
-        const { data } = await axios.post(`http://220.135.155.96:3001/login`, {
-          name: this.name,
-          phone: this.phone,
-        });
+        const { data } = await axios.post(
+          `http://${process.env.SERVER_HOST}/login`,
+          {
+            name: this.name,
+            phone: this.phone,
+          }
+        );
         window.localStorage.setItem("token", data.token);
         this.$router.push("/");
       } catch (error) {

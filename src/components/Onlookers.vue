@@ -77,7 +77,9 @@ export default {
       try {
         const {
           data: { groupedData },
-        } = await axios.get(`http://220.135.155.96:3001/getMemberGroupedData`);
+        } = await axios.get(
+          `http://${process.env.SERVER_HOST}/getMemberGroupedData`
+        );
         this.groupedData = groupedData;
         console.log(groupedData);
       } catch (error) {

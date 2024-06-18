@@ -48,7 +48,7 @@
           >報名</v-btn
         >
         <h4 class="text-center pt-2">
-          報名後請等待6/29(三)抽籤完畢後將開放賽制與吃瓜功能。
+          報名後請等待6/19(三)抽籤完畢後將開放賽制與吃瓜功能。
         </h4>
       </v-col>
     </v-row>
@@ -91,7 +91,7 @@ export default {
       this.isLoading = true;
       try {
         const { data } = await axios.post(
-          `http://220.135.155.96:3001/register`,
+          `http://${process.env.SERVER_HOST}/register`,
           {
             name: this.name,
             phone: this.phone,
@@ -104,7 +104,7 @@ export default {
         if (data === "User registered") {
           const {
             data: { token },
-          } = await axios.post(`http://220.135.155.96:3001/login`, {
+          } = await axios.post(`http://${process.env.SERVER_HOST}/login`, {
             name: this.name,
             phone: this.phone,
           });
