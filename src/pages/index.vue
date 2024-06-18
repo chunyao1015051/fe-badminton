@@ -24,9 +24,13 @@
         <onlookers></onlookers>
       </v-tabs-window-item>
 
-      <v-tabs-window-item :value="3"> </v-tabs-window-item>
+      <v-tabs-window-item :value="3">
+        <content-one></content-one>
+      </v-tabs-window-item>
 
-      <v-tabs-window-item :value="4"> </v-tabs-window-item>
+      <v-tabs-window-item :value="4">
+        <content-two></content-two>
+      </v-tabs-window-item>
     </v-tabs-window>
   </div>
   <welcome-view v-else></welcome-view>
@@ -35,8 +39,10 @@
 <script>
 import WelcomeView from "@/components/WelcomeView.vue";
 import Onlookers from "@/components/Onlookers.vue";
+import ContentOne from "@/components/ContentOne.vue";
+import ContentTwo from "@/components/ContentTwo.vue";
 export default {
-  components: { WelcomeView, Onlookers },
+  components: { WelcomeView, Onlookers, ContentOne, ContentTwo },
   data() {
     return {
       tab: 1,

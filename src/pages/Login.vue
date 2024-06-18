@@ -7,32 +7,44 @@
           <v-img src="/src/assets/title.gif" width="350" inline />
         </v-col>
         <v-col cols="12">
-          <v-text-field
-            v-model="name"
-            label="姓名"
-            variant="outlined"
-            bg-color="white"
-            autofocus
-          ></v-text-field>
+          <v-row justify="center">
+            <v-col sm="12" lg="6">
+              <v-text-field
+                v-model="name"
+                label="姓名"
+                variant="outlined"
+                bg-color="white"
+                autofocus
+              ></v-text-field>
+            </v-col>
+          </v-row>
         </v-col>
         <v-col cols="12">
-          <v-text-field
-            v-model="phone"
-            label="手機"
-            variant="outlined"
-            bg-color="white"
-            type="number"
-          ></v-text-field>
+          <v-row justify="center">
+            <v-col sm="12" lg="6">
+              <v-text-field
+                v-model="phone"
+                label="手機"
+                variant="outlined"
+                bg-color="white"
+                type="number"
+              ></v-text-field>
+            </v-col>
+          </v-row>
         </v-col>
         <v-col cols="12">
-          <v-btn
-            block
-            :color="!name || !phone ? '' : 'blue'"
-            :disabled="!name || !phone"
-            :loading="isLoading"
-            type="submit"
-            >Login</v-btn
-          >
+          <v-row justify="center">
+            <v-col sm="12" lg="6">
+              <v-btn
+                block
+                :color="!name || !phone ? '' : 'blue'"
+                :disabled="!name || !phone"
+                :loading="isLoading"
+                type="submit"
+                >Login</v-btn
+              >
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-form>

@@ -41,7 +41,6 @@
                   >
                 </v-sheet>
                 <v-sheet color="transparent"> 總瓜量： </v-sheet>
-                <v-sheet color="transparent"> 總瓜量： </v-sheet>
                 <v-sheet color="transparent"> 您已下訂瓜量： </v-sheet>
                 <v-sheet color="transparent"> 目前排名： </v-sheet>
               </v-col>
@@ -81,7 +80,6 @@ export default {
           `http://${process.env.SERVER_HOST}/getMemberGroupedData`
         );
         this.groupedData = groupedData;
-        console.log(groupedData);
       } catch (error) {
         const {
           response: { data, status },

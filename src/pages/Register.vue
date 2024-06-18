@@ -6,50 +6,70 @@
         <v-img src="/src/assets/title.gif" width="350" inline />
       </v-col>
       <v-col cols="12">
-        <v-text-field
-          v-model="name"
-          label="姓名(公司常用名)"
-          variant="outlined"
-          bg-color="white"
-          autofocus
-        ></v-text-field>
+        <v-row justify="center">
+          <v-col sm="12" lg="6">
+            <v-text-field
+              v-model="name"
+              label="姓名(公司常用名)"
+              variant="outlined"
+              bg-color="white"
+              autofocus
+            ></v-text-field>
+          </v-col>
+        </v-row>
       </v-col>
       <v-col cols="12">
-        <v-text-field
-          v-model="phone"
-          label="手機"
-          variant="outlined"
-          bg-color="white"
-          type="number"
-        ></v-text-field>
+        <v-row justify="center">
+          <v-col sm="12" lg="6">
+            <v-text-field
+              v-model="phone"
+              label="手機"
+              variant="outlined"
+              bg-color="white"
+              type="number"
+            ></v-text-field>
+          </v-col>
+        </v-row>
       </v-col>
       <v-col cols="12">
-        <v-radio-group inline label="賽制" v-model="category">
-          <v-radio label="幼幼班" value="幼幼班"></v-radio>
-          <v-radio label="大班" value="大班"></v-radio>
-          <v-radio label="只吃瓜看比賽" value="吃瓜"></v-radio>
-        </v-radio-group>
+        <v-row justify="center">
+          <v-col sm="12" lg="6">
+            <v-radio-group inline label="賽制" v-model="category">
+              <v-radio label="幼幼班" value="幼幼班"></v-radio>
+              <v-radio label="大班" value="大班"></v-radio>
+              <v-radio label="只吃瓜看比賽" value="吃瓜"></v-radio>
+            </v-radio-group>
+          </v-col>
+        </v-row>
       </v-col>
       <v-col cols="12">
-        <v-radio-group inline label="自備羽球拍" v-model="isBringingRacket">
-          <v-radio label="是" value="是"></v-radio>
-          <v-radio label="否" value="否"></v-radio>
-        </v-radio-group>
+        <v-row justify="center">
+          <v-col sm="12" lg="6">
+            <v-radio-group inline label="自備羽球拍" v-model="isBringingRacket">
+              <v-radio label="是" value="是"></v-radio>
+              <v-radio label="否" value="否"></v-radio>
+            </v-radio-group>
+          </v-col>
+        </v-row>
       </v-col>
       <v-col cols="12">
-        <v-btn
-          block
-          :color="
-            !name || !phone || !category || !isBringingRacket ? '' : 'green'
-          "
-          :disabled="!name || !phone || !category || !isBringingRacket"
-          :loading="isLoading"
-          @click="register"
-          >報名</v-btn
-        >
-        <h4 class="text-center pt-2">
-          報名後請等待6/19(三)抽籤完畢後將開放賽制與吃瓜功能。
-        </h4>
+        <v-row justify="center">
+          <v-col sm="12" lg="6">
+            <v-btn
+              block
+              :color="
+                !name || !phone || !category || !isBringingRacket ? '' : 'green'
+              "
+              :disabled="!name || !phone || !category || !isBringingRacket"
+              :loading="isLoading"
+              @click="register"
+              >報名</v-btn
+            >
+            <h4 class="text-center pt-2">
+              報名後請等待6/19(三)抽籤完畢後將開放賽制與吃瓜功能。
+            </h4>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
 
