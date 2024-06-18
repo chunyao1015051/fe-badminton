@@ -55,7 +55,14 @@
       {{ errorMessage }}
 
       <template v-slot:actions>
-        <v-btn color="pink" variant="text" @click="isError = false">
+        <v-btn
+          v-if="errorMessage === '此姓名已報名，請登入'"
+          color="blue"
+          @click="$router.push('/login')"
+        >
+          登入
+        </v-btn>
+        <v-btn v-else color="pink" variant="text" @click="isError = false">
           Close
         </v-btn>
       </template>
@@ -81,28 +88,24 @@ export default {
     async register() {
       this.isLoading = true;
       try {
-        const { data } = await axios.post(
-          "http://220.135.155.96:3001/register",
-          {
-            name: this.name,
-            phone: this.phone,
-            category: this.category,
-            isBringingRacket: this.isBringingRacket,
-            score: 0,
-            group: "A",
-          }
-        );
+        const { data } = await axios.post("http://127.0.0.1:3001/register", {
+          name: this.name,
+          phone: this.phone,
+          category: this.category,
+          isBringingRacket: this.isBringingRacket,
+          score: 0,
+          group: "A",
+        });
         if (data === "User registered") {
           this.$router.push("/");
         }
       } catch (error) {
+        console.log(error);
         const {
-          response: {
-            data: { errorResponse },
-          },
+          response: { data },
         } = error;
         this.isError = true;
-        this.errorMessage = errorResponse.errmsg;
+        this.errorMessage = data;
       }
       this.isLoading = false;
     },

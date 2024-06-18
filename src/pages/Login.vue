@@ -72,7 +72,7 @@ export default {
     async login() {
       this.isLoading = true;
       try {
-        const { data } = await axios.post("http://220.135.155.96:3001/login", {
+        const { data } = await axios.post("http://127.0.0.1:3001/login", {
           name: this.name,
           phone: this.phone,
         });
@@ -89,7 +89,7 @@ export default {
           return;
         }
         this.isError = true;
-        this.errorMessage = data.errorResponse.errmsg;
+        this.errorMessage = data;
       }
 
       this.isLoading = false;
