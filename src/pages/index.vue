@@ -11,24 +11,9 @@
       density="compact"
     >
       <v-tab :value="1">活動說明</v-tab>
-      <v-tab
-        :value="2"
-        :disabled="!(user && ['James', 'Mega'].includes(user.name))"
-      >
-        吃瓜民眾
-      </v-tab>
-      <v-tab
-        :value="3"
-        :disabled="!(user && ['James', 'Mega'].includes(user.name))"
-      >
-        幼幼班賽制
-      </v-tab>
-      <v-tab
-        :value="4"
-        :disabled="!(user && ['James', 'Mega'].includes(user.name))"
-      >
-        大班賽制
-      </v-tab>
+      <v-tab :value="2"> 吃瓜民眾 </v-tab>
+      <v-tab :value="3"> 幼幼班賽制 </v-tab>
+      <v-tab :value="4"> 大班賽制 </v-tab>
     </v-tabs>
     <v-tabs-window v-model="tab">
       <v-tabs-window-item :value="1">
