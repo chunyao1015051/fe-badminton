@@ -191,7 +191,7 @@
                 size="large"
                 :disabled="isLoadingSave"
               >
-                Cancel
+                取消
               </v-btn>
 
               <v-btn
@@ -200,7 +200,7 @@
                 color="green"
                 :loading="isLoadingSave"
               >
-                Send
+                送出
               </v-btn>
             </template>
           </v-card>
