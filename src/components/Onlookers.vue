@@ -164,17 +164,34 @@
               </v-btn>
 
               <v-btn
-                @click="save(category, group)"
+                @click="isOpenConfirmDialog = true"
                 size="large"
                 color="green"
                 :loading="isLoadingSave"
               >
-                Save
+                Send
               </v-btn>
             </template>
           </v-card>
         </v-col>
       </v-row>
+    </v-dialog>
+
+    <v-dialog v-model="isOpenConfirmDialog">
+      <v-card>
+        <v-card-text class="text-center text-h5"> 是否確認送出！ </v-card-text>
+        <template v-slot:actions>
+          <v-btn color="orange" @click="isOpenConfirmDialog = false">
+            先不要
+          </v-btn>
+          <v-btn
+            color="green-darken-1"
+            @click="save(category, group), (isOpenConfirmDialog = false)"
+          >
+            確認
+          </v-btn>
+        </template>
+      </v-card>
     </v-dialog>
 
     <v-dialog v-model="isOpenTotalDialog">
@@ -211,6 +228,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      isOpenConfirmDialog: false,
       category: null,
       group: null,
       isLoadingSave: false,
