@@ -1,7 +1,9 @@
 <template>
   <v-app class="bg">
     <v-main>
-      <router-view v-if="!isServerDisconnected" />
+      <v-fade-transition>
+        <router-view v-if="!isServerDisconnected" />
+      </v-fade-transition>
       <template>
         <div class="text-center pa-4">
           <v-dialog v-model="isServerDisconnected" width="auto" persistent>

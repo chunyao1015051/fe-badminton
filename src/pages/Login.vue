@@ -92,6 +92,7 @@ export default {
           }
         );
         window.localStorage.setItem("token", data.token);
+        await this.getUserData();
         this.$router.push("/");
       } catch (error) {
         let errorMessage = "";
@@ -110,6 +111,19 @@ export default {
       }
 
       this.isLoading = false;
+    },
+    async getUserData() {
+      const token = window.localStorage.getItem("token");
+      if (!token) {
+        this.$store.commit("setUserData", {});
+        return;
+      }
+
+      const { data } = await axios.post(
+        `http://${process.env.SERVER_HOST}/getUserData`,
+        { token }
+      );
+      this.$store.commit("setUserData", data);
     },
   },
 };
