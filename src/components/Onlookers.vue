@@ -178,20 +178,27 @@
     </v-dialog>
 
     <v-dialog v-model="isOpenConfirmDialog">
-      <v-card>
-        <v-card-text class="text-center text-h5"> 是否確認送出！ </v-card-text>
-        <template v-slot:actions>
-          <v-btn color="orange" @click="isOpenConfirmDialog = false">
-            先不要
-          </v-btn>
-          <v-btn
-            color="green-darken-1"
-            @click="save(category, group), (isOpenConfirmDialog = false)"
-          >
-            確認
-          </v-btn>
-        </template>
-      </v-card>
+      <v-row justify="center">
+        <v-col col="12" lg="3">
+          <v-card>
+            <v-card-text class="text-center text-h5">
+              是否確認送出！
+            </v-card-text>
+            <template v-slot:actions>
+              <v-spacer></v-spacer>
+              <v-btn color="orange" @click="isOpenConfirmDialog = false">
+                先不要
+              </v-btn>
+              <v-btn
+                color="green-darken-1"
+                @click="save(category, group), (isOpenConfirmDialog = false)"
+              >
+                確認
+              </v-btn>
+            </template>
+          </v-card>
+        </v-col>
+      </v-row>
     </v-dialog>
 
     <v-dialog v-model="isOpenTotalDialog">
