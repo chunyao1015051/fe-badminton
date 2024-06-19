@@ -3,22 +3,53 @@
   <v-container class="mt-5">
     <v-row justify="center" dense>
       <v-col cols="12" class="text-center">
-        <h5>選擇您心目中的冠軍隊伍！</h5>
-        <h5>吃瓜同時與冠軍一起分瓜～</h5>
-        <h5>SLOGAN</h5>
-        <h5>備註：如冠軍無人送瓜則瓜瓜直至下期夏至盃！</h5>
-        <h5>1瓜 = 50</h5>
+        <h5>送瓜給您心目中的冠軍隊伍！</h5>
+        <h5>將於賽後進行份瓜</h5>
+        <h5>如冠軍無人送瓜則瓜瓜直至下期夏至盃！</h5>
+        <h5>1瓜 = 50$</h5>
       </v-col>
-      <v-col cols="12" lg="7" class="text-right mb-n4 mt-n4">
+      <v-col cols="12" lg="7" class="text-right mb-n1 mt-n6">
         <v-btn
           variant="text"
-          color="green"
+          color="cyan"
           :loading="isLoadingGetQtyData"
-          @click="getQtyData(), getMemberGroupedData()"
+          @click="refresh()"
         >
           <v-icon>mdi-sync</v-icon>
           更新資料
         </v-btn>
+      </v-col>
+      <v-col cols="12">
+        <v-row dense justify="center">
+          <v-col cols="6" lg="3">
+            <v-card elevation="4">
+              <v-card-title class="bg-blue-lighten-1 mb-n2 mt-n2">
+                幼幼班
+              </v-card-title>
+              <v-list density="compact">
+                <v-list-item color="blue">
+                  <!-- <template v-slot:prepend> 總瓜量 </template> -->
+
+                  <v-list-item-title>總瓜量： {{ qtyOne }}</v-list-item-title>
+                  <v-list-item-title>冠軍： --</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-card>
+          </v-col>
+          <v-col cols="6" lg="3">
+            <v-card elevation="4">
+              <v-card-title class="bg-blue-lighten-1 mb-n2 mt-n2">
+                大班
+              </v-card-title>
+              <v-list density="compact">
+                <v-list-item color="blue">
+                  <v-list-item-title>總瓜量： {{ qtyTwo }}</v-list-item-title>
+                  <v-list-item-title>冠軍： --</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
     <v-row>
@@ -53,7 +84,7 @@
                   >
                 </v-sheet>
                 <v-sheet color="transparent">
-                  總瓜量：{{ totalQty(data._id, subData.group) }}
+                  收到的瓜：{{ totalQty(data._id, subData.group) }}
                   <!-- <v-btn
                     variant="text"
                     color="green"
@@ -75,7 +106,7 @@
               </v-col>
               <v-col>
                 <v-btn
-                  color="blue"
+                  color="green"
                   block
                   @click="
                     (isOpenDialog = true),
@@ -235,6 +266,8 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      qtyOne: 0,
+      qtyTwo: 0,
       isOpenConfirmDialog: false,
       category: null,
       group: null,
@@ -259,6 +292,10 @@ export default {
     await this.getQtyData();
   },
   methods: {
+    async refresh() {
+      await this.getQtyData();
+      await this.getMemberGroupedData();
+    },
     totalQty(category, group) {
       if (
         this.qtyGroupedData[category] &&
@@ -328,6 +365,19 @@ export default {
           }, {});
           return pre;
         }, {});
+        for (const subData of data) {
+          if (subData._id === "幼幼班") {
+            this.qtyOne = subData.groups.reduce((pre, curr) => {
+              pre += curr.totalQty;
+              return pre;
+            }, 0);
+          } else if (subData._id === "大班") {
+            this.qtyTwo = subData.groups.reduce((pre, curr) => {
+              pre += curr.totalQty;
+              return pre;
+            }, 0);
+          }
+        }
       } catch (error) {
         //
       }

@@ -1,9 +1,11 @@
 <template>
   <v-app class="bg">
     <v-main>
-      <v-fade-transition>
-        <router-view v-if="!isServerDisconnected" />
-      </v-fade-transition>
+      <router-view v-slot="{ Component }">
+        <v-fade-transition>
+          <component v-if="!isServerDisconnected" :is="Component" />
+        </v-fade-transition>
+      </router-view>
       <template>
         <div class="text-center pa-4">
           <v-dialog v-model="isServerDisconnected" width="auto" persistent>
