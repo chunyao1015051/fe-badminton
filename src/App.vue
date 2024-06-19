@@ -4,8 +4,6 @@
       <router-view v-if="!isServerDisconnected" />
       <template>
         <div class="text-center pa-4">
-          <v-btn @click="dialog = true"> Open Dialog </v-btn>
-
           <v-dialog v-model="isServerDisconnected" width="auto" persistent>
             <v-card
               max-width="400"
@@ -23,17 +21,31 @@
 
 <script>
 import axios from "axios";
-
 export default {
   data() {
     return {
       isServerDisconnected: false,
     };
   },
+
   async created() {
     await this.connectTest();
+    await this.getUserData();
   },
   methods: {
+    async getUserData() {
+      const token = window.localStorage.getItem("token");
+      if (!token) {
+        this.$store.commit("setUserData", {});
+        return;
+      }
+
+      const { data } = await axios.post(
+        `http://${process.env.SERVER_HOST}/getUserData`,
+        { token }
+      );
+      this.$store.commit("setUserData", data);
+    },
     async connectTest() {
       try {
         await axios.get(`http://${process.env.SERVER_HOST}/connectTest`);

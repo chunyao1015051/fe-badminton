@@ -11,9 +11,24 @@
       density="compact"
     >
       <v-tab :value="1">活動說明</v-tab>
-      <v-tab :value="2" disabled>吃瓜民眾</v-tab>
-      <v-tab :value="3" disabled>幼幼班賽制</v-tab>
-      <v-tab :value="4" disabled>大班賽制</v-tab>
+      <v-tab
+        :value="2"
+        :disabled="user && ['James', 'Mega'].includes(user.name)"
+      >
+        吃瓜民眾
+      </v-tab>
+      <v-tab
+        :value="3"
+        :disabled="user && ['James', 'Mega'].includes(user.name)"
+      >
+        幼幼班賽制
+      </v-tab>
+      <v-tab
+        :value="4"
+        :disabled="user && ['James', 'Mega'].includes(user.name)"
+      >
+        大班賽制
+      </v-tab>
     </v-tabs>
     <v-tabs-window v-model="tab">
       <v-tabs-window-item :value="1">
@@ -37,6 +52,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import WelcomeView from "@/components/WelcomeView.vue";
 import Onlookers from "@/components/Onlookers.vue";
 import ContentOne from "@/components/ContentOne.vue";
@@ -49,11 +66,11 @@ export default {
     };
   },
   computed: {
+    ...mapState(["user"]),
+
     token() {
       return window.localStorage.getItem("token");
     },
   },
 };
 </script>
-
-<style></style>
