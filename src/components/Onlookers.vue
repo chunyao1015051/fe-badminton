@@ -317,6 +317,7 @@
                 <v-row dense>
                   <v-col cols="12">
                     <apexchart
+                      height="250"
                       type="pie"
                       :options="
                         category === '幼幼班'
