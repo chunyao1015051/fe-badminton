@@ -195,89 +195,93 @@
     </v-row>
     <v-dialog v-model="isDialog">
       <template v-slot:default="{ isActive }">
-        <v-card>
-          <v-card-title
-            class="bg-blue text-white d-flex justify-space-between align-center"
-          >
-            輸入比賽結果
-            <v-btn
-              icon="mdi-close"
-              variant="text"
-              color="white"
-              @click="isActive.value = false"
-            ></v-btn>
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col cols="6">
-                <v-select
-                  v-model="group_one"
-                  label="隊伍1"
-                  :items="
-                    ['A', 'B', 'C', 'D', 'E', 'F'].filter(
-                      (el) =>
-                        !group_two ||
-                        (group_two &&
-                          el.charCodeAt(0) < group_two.charCodeAt(0))
-                    )
-                  "
-                ></v-select>
-              </v-col>
-              <v-col cols="6">
-                <v-number-input
-                  v-model="group_one_scores"
-                  :reverse="false"
-                  control-variant="stacked"
-                  label="隊伍1分數"
-                  :hideInput="false"
-                  inset
-                  :min="0"
-                ></v-number-input>
-              </v-col>
-              <v-col cols="6">
-                <v-select
-                  v-model="group_two"
-                  label="隊伍2"
-                  :items="
-                    ['A', 'B', 'C', 'D', 'E', 'F'].filter(
-                      (el) =>
-                        !group_one ||
-                        (group_one &&
-                          el.charCodeAt(0) > group_one.charCodeAt(0))
-                    )
-                  "
-                ></v-select>
-              </v-col>
-              <v-col cols="6">
-                <v-number-input
-                  v-model="group_two_scores"
-                  :reverse="false"
-                  control-variant="stacked"
-                  label="隊伍1分數"
-                  :hideInput="false"
-                  inset
-                  :min="0"
-                ></v-number-input>
-              </v-col>
-              <v-col col="12">
+        <v-row justify="center">
+          <v-col cols="12" lg="6">
+            <v-card>
+              <v-card-title
+                class="bg-blue text-white d-flex justify-space-between align-center"
+              >
+                輸入比賽結果
                 <v-btn
-                  variant="tonal"
-                  color="green"
-                  block
-                  :disabled="
-                    !group_one ||
-                    !group_two ||
-                    !group_one_scores ||
-                    !group_two_scores
-                  "
-                  @click="updateScores()"
-                >
-                  送出
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
+                  icon="mdi-close"
+                  variant="text"
+                  color="white"
+                  @click="isActive.value = false"
+                ></v-btn>
+              </v-card-title>
+              <v-card-text>
+                <v-row class="mt-3">
+                  <v-col cols="6">
+                    <v-select
+                      v-model="group_one"
+                      label="隊伍1"
+                      :items="
+                        ['A', 'B', 'C', 'D', 'E', 'F'].filter(
+                          (el) =>
+                            !group_two ||
+                            (group_two &&
+                              el.charCodeAt(0) < group_two.charCodeAt(0))
+                        )
+                      "
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-number-input
+                      v-model="group_one_scores"
+                      :reverse="false"
+                      control-variant="stacked"
+                      label="隊伍1分數"
+                      :hideInput="false"
+                      inset
+                      :min="0"
+                    ></v-number-input>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-select
+                      v-model="group_two"
+                      label="隊伍2"
+                      :items="
+                        ['A', 'B', 'C', 'D', 'E', 'F'].filter(
+                          (el) =>
+                            !group_one ||
+                            (group_one &&
+                              el.charCodeAt(0) > group_one.charCodeAt(0))
+                        )
+                      "
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-number-input
+                      v-model="group_two_scores"
+                      :reverse="false"
+                      control-variant="stacked"
+                      label="隊伍1分數"
+                      :hideInput="false"
+                      inset
+                      :min="0"
+                    ></v-number-input>
+                  </v-col>
+                  <v-col col="12">
+                    <v-btn
+                      variant="tonal"
+                      color="green"
+                      block
+                      :disabled="
+                        !group_one ||
+                        !group_two ||
+                        !group_one_scores ||
+                        !group_two_scores
+                      "
+                      @click="updateScores()"
+                    >
+                      送出
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
       </template>
     </v-dialog>
   </v-container>
