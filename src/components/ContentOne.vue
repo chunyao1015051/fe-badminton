@@ -214,7 +214,7 @@
                   v-model="group_one"
                   label="隊伍1"
                   :items="
-                    ['A', 'B', 'C', 'D'].filter(
+                    ['A', 'B', 'C', 'D', 'E', 'F'].filter(
                       (el) =>
                         !group_two ||
                         (group_two &&
@@ -239,7 +239,7 @@
                   v-model="group_two"
                   label="隊伍2"
                   :items="
-                    ['A', 'B', 'C', 'D'].filter(
+                    ['A', 'B', 'C', 'D', 'E', 'F'].filter(
                       (el) =>
                         !group_one ||
                         (group_one &&
