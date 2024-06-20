@@ -510,7 +510,7 @@ export default {
       if (!totalQty) {
         return 0;
       }
-      return (qty / totalQty) * qtyTotal * 50;
+      return Math.round((qty / totalQty) * qtyTotal * 50);
     },
     formula(category, data) {
       const qtyTotal = category === "幼幼班" ? this.qtyOne : this.qtyTwo;
@@ -523,9 +523,9 @@ export default {
       if (!totalQty) {
         return 0;
       }
-      return `${qtyTotal} × 50 × (${qty} ÷ ${totalQty}) = ${
+      return `${qtyTotal} × 50 × (${qty} ÷ ${totalQty}) = ${Math.round(
         (qty / totalQty) * qtyTotal * 50
-      } `;
+      )} `;
     },
     totalQty(category, group) {
       if (
