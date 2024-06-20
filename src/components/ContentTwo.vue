@@ -31,9 +31,8 @@
         </svg>
       </v-col>
       <v-col cols="12" class="text-center">
-        <svg width="400" height="300">
+        <svg width="330" height="280" viewBox="50 0 300 300">
           <!-- 上方圓形 -->
-          <!-- <circle cx="200" cy="50" r="20" stroke="black" stroke-width="2" fill="white" /> -->
 
           <!-- 左側三角形 -->
           <polygon
