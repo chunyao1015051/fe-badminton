@@ -4,7 +4,7 @@
     <v-row justify="center" dense>
       <v-col cols="12" class="text-center">
         <h5>送瓜給您心目中的冠軍隊伍！</h5>
-        <h5>將於賽後進行份瓜</h5>
+        <h5>將於賽後進行分瓜</h5>
         <h5>如冠軍無人送瓜則瓜瓜直至下期夏至盃！</h5>
         <h5>1瓜 = 50$</h5>
       </v-col>
