@@ -17,7 +17,12 @@
         <h3 class="text-center">下一組 C vs D 選手預備</h3>
       </v-col>
       <v-col cols="12" class="text-center">
-        <svg width="300" height="300" viewBox="40 20 220 220" class="mt-n6">
+        <svg
+          width="300"
+          height="300"
+          viewBox="40 20 220 220"
+          class="mt-n6 mb-n9"
+        >
           <!-- 畫出正五邊形 -->
           <polygon
             points="150,50 238,115 208,210 92,210 62,115"
@@ -67,7 +72,7 @@
           <text x="50" y="120" font-family="Arial" font-size="15">B</text>
         </svg>
       </v-col>
-      <v-col cols="12" lg="6" class="mt-n9">
+      <v-col cols="12" lg="6">
         <v-row>
           <v-col><h2>積分表</h2></v-col>
           <v-col class="text-right">
