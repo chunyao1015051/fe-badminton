@@ -634,7 +634,17 @@ export default {
           }
         }
       } catch (error) {
-        //
+        let errorMessage = "";
+        const { code, response } = error;
+        if (code === "ERR_NETWORK") {
+          errorMessage = "伺服器斷線，趕快聯絡！";
+        } else if (response) {
+          errorMessage = response.data;
+        }
+
+        this.isOpenSnackbar = true;
+        this.message = errorMessage;
+        this.colorSnackbar = "red";
       }
       this.isLoadingGetQtyData = false;
     },
