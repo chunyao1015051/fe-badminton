@@ -24,16 +24,38 @@
           <v-col cols="6" lg="3">
             <v-card elevation="4">
               <v-card-title class="bg-blue-lighten-1 mb-n2 mt-n2">
-                幼幼班
+                <v-row>
+                  <v-col> 幼幼班 </v-col>
+                </v-row>
               </v-card-title>
-              <v-list density="compact">
+              <v-list density="compact" class="mb-n5">
                 <v-list-item color="blue">
                   <!-- <template v-slot:prepend> 總瓜量 </template> -->
 
-                  <v-list-item-title>總瓜量： {{ qtyOne }}</v-list-item-title>
+                  <v-list-item-title>
+                    <v-row dense>
+                      <v-col> 總瓜量： {{ qtyOne }} </v-col>
+                    </v-row>
+                  </v-list-item-title>
                   <v-list-item-title>冠軍： --</v-list-item-title>
                 </v-list-item>
               </v-list>
+              <template v-slot:actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="amber-darken-1"
+                  size="small"
+                  variant="tonal"
+                  @click="
+                    (isOpenInfoDialog = true),
+                      (category = '幼幼班'),
+                      (panel = [])
+                  "
+                >
+                  <v-icon> mdi-information-outline </v-icon>
+                  更多資訊
+                </v-btn>
+              </template>
             </v-card>
           </v-col>
           <v-col cols="6" lg="3">
@@ -41,12 +63,24 @@
               <v-card-title class="bg-blue-lighten-1 mb-n2 mt-n2">
                 大班
               </v-card-title>
-              <v-list density="compact">
+              <v-list density="compact" class="mb-n5">
                 <v-list-item color="blue">
                   <v-list-item-title>總瓜量： {{ qtyTwo }}</v-list-item-title>
                   <v-list-item-title>冠軍： --</v-list-item-title>
                 </v-list-item>
               </v-list>
+              <template v-slot:actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="amber-darken-1"
+                  size="small"
+                  variant="tonal"
+                  @click="(isOpenInfoDialog = true), (category = '大班')"
+                >
+                  <v-icon> mdi-information-outline </v-icon>
+                  更多資訊
+                </v-btn>
+              </template>
             </v-card>
           </v-col>
         </v-row>
@@ -256,16 +290,159 @@
         <v-btn variant="text" @click="isOpenSnackbar = false"> Close </v-btn>
       </template>
     </v-snackbar>
+
+    <v-dialog v-model="isOpenInfoDialog" scrollable>
+      <template v-slot:default="{ isActive }">
+        <v-row justify="center">
+          <v-col cols="12" lg="6">
+            <v-card>
+              <v-card-title
+                class="bg-amber d-flex justify-space-between align-center"
+              >
+                <div class="text-white text-h5 ps-2">
+                  {{ `${category}` }}
+                </div>
+
+                <v-btn
+                  icon="mdi-close"
+                  variant="text"
+                  color="white"
+                  @click="isActive.value = false"
+                ></v-btn>
+              </v-card-title>
+
+              <v-card-text>
+                <v-row dense>
+                  <v-col cols="12">
+                    <apexchart
+                      type="pie"
+                      :options="
+                        category === '幼幼班'
+                          ? chartOptionsOne
+                          : chartOptionsTwo
+                      "
+                      :series="category === '幼幼班' ? seriesOne : seriesTwo"
+                    ></apexchart>
+                  </v-col>
+                  <v-col>
+                    <h3>
+                      總瓜量： {{ category === "幼幼班" ? qtyOne : qtyTwo }}
+                    </h3>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-expansion-panels v-model="panel" multiple elevation="4">
+                      <v-expansion-panel
+                        v-for="(team, index) of category === '幼幼班'
+                          ? ['A', 'B', 'C', 'D']
+                          : ['A', 'B', 'C', 'D', 'E']"
+                        :key="category + team"
+                        :value="team"
+                      >
+                        <v-expansion-panel-title>
+                          <v-row dense>
+                            <v-col class="mt-2">
+                              <h2>{{ team }}</h2>
+                            </v-col>
+                            <v-col class="text-right">
+                              <v-chip label :color="colors[index]">
+                                {{
+                                  (this.qtyGroupedData[category] &&
+                                    this.qtyGroupedData[category][team] &&
+                                    this.qtyGroupedData[category][team]
+                                      .totalQty) ||
+                                  0
+                                }}
+                              </v-chip>
+                            </v-col>
+                          </v-row>
+                        </v-expansion-panel-title>
+                        <v-expansion-panel-text>
+                          <v-list lines="one">
+                            <v-list-item
+                              v-for="n of (this.qtyGroupedData[category] &&
+                                this.qtyGroupedData[category][team] &&
+                                this.qtyGroupedData[category][team].members) ||
+                              []"
+                              :key="n"
+                            >
+                              <v-list-item-title>
+                                <v-row>
+                                  <v-col>
+                                    <h4>
+                                      {{ n.name }}
+                                    </h4>
+                                  </v-col>
+                                  <v-col class="text-right mr-1">
+                                    <v-chip :color="colors[index]" label>
+                                      {{ n.qty }}
+                                    </v-chip>
+                                  </v-col>
+                                </v-row>
+                              </v-list-item-title>
+                              <v-divider class="my-1"></v-divider>
+                            </v-list-item>
+                          </v-list>
+                        </v-expansion-panel-text>
+                      </v-expansion-panel>
+                    </v-expansion-panels>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </template>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
-
+import VueApexCharts from "vue3-apexcharts";
 export default {
+  components: {
+    apexchart: VueApexCharts,
+  },
   data() {
     return {
+      colors: ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"],
+      panel: [],
+      seriesOne: [0, 0, 0, 0],
+      seriesTwo: [0, 0, 0, 0, 0],
+      chartOptionsOne: {
+        colors: ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"],
+        chart: {
+          animations: {
+            enabled: true,
+            easing: "easeinout",
+            speed: 800,
+            animateGradually: {
+              enabled: true,
+              delay: 150,
+            },
+            dynamicAnimation: {
+              enabled: true,
+              speed: 350,
+            },
+          },
+        },
+        legend: {
+          position: "bottom",
+        },
+        labels: ["A", "B", "C", "D"],
+      },
+      chartOptionsTwo: {
+        colors: ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"],
+        chart: {
+          width: "100%",
+        },
+        legend: {
+          position: "bottom",
+        },
+        labels: ["A", "B", "C", "D", "E"],
+      },
+      isOpenInfoDialog: false,
       qtyOne: 0,
       qtyTwo: 0,
       isOpenConfirmDialog: false,
@@ -365,6 +542,29 @@ export default {
           }, {});
           return pre;
         }, {});
+        for (const [index, group] of ["A", "B", "C", "D"].entries()) {
+          if (
+            this.qtyGroupedData["幼幼班"] &&
+            this.qtyGroupedData["幼幼班"][group]
+          ) {
+            this.seriesOne[index] =
+              this.qtyGroupedData["幼幼班"][group].totalQty || 0;
+          } else {
+            this.seriesOne[index] = 0;
+          }
+        }
+        for (const [index, group] of ["A", "B", "C", "D", "E"].entries()) {
+          if (
+            this.qtyGroupedData["大班"] &&
+            this.qtyGroupedData["大班"][group]
+          ) {
+            this.seriesTwo[index] =
+              this.qtyGroupedData["大班"][group].totalQty || 0;
+          } else {
+            this.seriesTwo[index] = 0;
+          }
+        }
+
         for (const subData of data) {
           if (subData._id === "幼幼班") {
             this.qtyOne = subData.groups.reduce((pre, curr) => {
