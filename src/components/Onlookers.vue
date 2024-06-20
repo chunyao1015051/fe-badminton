@@ -348,8 +348,8 @@
                       >
                         <v-expansion-panel-title>
                           <v-row dense>
-                            <v-col>
-                              <h2>
+                            <v-col cols="10">
+                              <h2 >
                                 {{ team }}
                                 <v-chip
                                   v-for="el of groupedData[
@@ -357,6 +357,7 @@
                                   ].groups[index].members"
                                   :key="el.name"
                                   label
+                                  size="small"
                                   :color="colors[index]"
                                   class="mx-1"
                                   >{{ el.name }}</v-chip
