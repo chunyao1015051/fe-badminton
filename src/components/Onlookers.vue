@@ -340,7 +340,7 @@
                     cols="12"
                     style="max-height: calc(100vh - 430px); overflow: auto"
                   >
-                    <v-expansion-panels v-model="panel" multiple elevation="4">
+                    <v-expansion-panels v-model="panel" multiple>
                       <v-expansion-panel
                         v-for="(team, index) of category === '幼幼班'
                           ? ['A', 'B', 'C', 'D']
