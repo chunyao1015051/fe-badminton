@@ -330,6 +330,10 @@
                     <h3>
                       總瓜量： {{ category === "幼幼班" ? qtyOne : qtyTwo }}
                     </h3>
+                    <h5 class="text-grey">此顯示獎金為猜對冠軍將獲得的獎金</h5>
+                    <h5 class="text-grey">
+                      公式：總瓜量 * 50 * (個人該組投資瓜量 / 該組總瓜量)
+                    </h5>
                   </v-col>
                   <v-col
                     cols="12"
@@ -373,8 +377,13 @@
                               <v-list-item-title>
                                 <v-row>
                                   <v-col>
-                                    <h4>
+                                    <h4
+                                      :class="{
+                                        'text-blue': n.name === user.name,
+                                      }"
+                                    >
                                       {{ n.name }}
+                                      {{ n.name === user.name ? `(You)` : "" }}
                                     </h4>
                                   </v-col>
                                   <v-col class="text-right mr-1">
@@ -385,7 +394,16 @@
                                 </v-row>
                               </v-list-item-title>
                               <v-list-item-subtitle>
-                                {{ expectWin(category, n) }}$
+                                <span> {{ expectWin(category, n) }}$ </span>
+
+                                <v-tooltip open-on-click>
+                                  <template v-slot:activator="{ props }">
+                                    <v-icon v-bind="props">
+                                      mdi-information
+                                    </v-icon>
+                                  </template>
+                                  {{ formula(category, n) }}
+                                </v-tooltip>
                               </v-list-item-subtitle>
                               <v-divider class="my-1"></v-divider>
                             </v-list-item>
@@ -493,6 +511,21 @@ export default {
         return 0;
       }
       return (qty / totalQty) * qtyTotal * 50;
+    },
+    formula(category, data) {
+      const qtyTotal = category === "幼幼班" ? this.qtyOne : this.qtyTwo;
+      const { qty, group } = data;
+      const totalQty =
+        (this.qtyGroupedData[category] &&
+          this.qtyGroupedData[category][group] &&
+          this.qtyGroupedData[category][group].totalQty) ||
+        0;
+      if (!totalQty) {
+        return 0;
+      }
+      return `${qtyTotal} × 50 × (${qty} ÷ ${totalQty}) = ${
+        (qty / totalQty) * qtyTotal * 50
+      } `;
     },
     totalQty(category, group) {
       if (

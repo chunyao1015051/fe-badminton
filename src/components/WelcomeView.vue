@@ -43,7 +43,7 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <!-- <v-col cols="6">
+          <v-col cols="6">
             <v-btn
               block
               class="mr-3"
@@ -52,7 +52,7 @@
               @click="$router.push('/register')"
               >報名</v-btn
             >
-          </v-col> -->
+          </v-col>
           <v-col cols="6">
             <v-btn
               block

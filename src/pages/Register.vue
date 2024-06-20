@@ -35,14 +35,14 @@
         <v-row justify="center">
           <v-col sm="12" lg="6">
             <v-radio-group inline label="賽制" v-model="category">
-              <v-radio label="幼幼班" value="幼幼班"></v-radio>
-              <v-radio label="大班" value="大班"></v-radio>
+              <!-- <v-radio label="幼幼班" value="幼幼班"></v-radio>
+              <v-radio label="大班" value="大班"></v-radio> -->
               <v-radio label="只吃瓜看比賽" value="吃瓜"></v-radio>
             </v-radio-group>
           </v-col>
         </v-row>
       </v-col>
-      <v-col cols="12">
+      <!-- <v-col cols="12">
         <v-row justify="center">
           <v-col sm="12" lg="6">
             <v-radio-group inline label="自備羽球拍" v-model="isBringingRacket">
@@ -51,16 +51,14 @@
             </v-radio-group>
           </v-col>
         </v-row>
-      </v-col>
+      </v-col> -->
       <v-col cols="12">
         <v-row justify="center">
           <v-col sm="12" lg="6">
             <v-btn
               block
-              :color="
-                !name || !phone || !category || !isBringingRacket ? '' : 'green'
-              "
-              :disabled="!name || !phone || !category || !isBringingRacket"
+              :color="!name || !phone || !category ? '' : 'green'"
+              :disabled="!name || !phone || !category"
               :loading="isLoading"
               @click="register"
               >報名</v-btn
@@ -102,7 +100,7 @@ export default {
       isLoading: false,
       name: null,
       phone: null,
-      category: null,
+      category: "吃瓜",
       isBringingRacket: null,
     };
   },
