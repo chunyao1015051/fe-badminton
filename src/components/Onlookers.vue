@@ -384,6 +384,9 @@
                                   </v-col>
                                 </v-row>
                               </v-list-item-title>
+                              <v-list-item-subtitle>
+                                {{ expectWin(category, n) }}$
+                              </v-list-item-subtitle>
                               <v-divider class="my-1"></v-divider>
                             </v-list-item>
                           </v-list>
@@ -477,6 +480,19 @@ export default {
     async refresh() {
       await this.getQtyData();
       await this.getMemberGroupedData();
+    },
+    expectWin(category, data) {
+      const qtyTotal = category === "幼幼班" ? this.qtyOne : this.qtyTwo;
+      const { qty, group } = data;
+      const totalQty =
+        (this.qtyGroupedData[category] &&
+          this.qtyGroupedData[category][group] &&
+          this.qtyGroupedData[category][group].totalQty) ||
+        0;
+      if (!totalQty) {
+        return 0;
+      }
+      return (qty / totalQty) * qtyTotal * 50;
     },
     totalQty(category, group) {
       if (
