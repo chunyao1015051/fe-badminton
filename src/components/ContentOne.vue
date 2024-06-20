@@ -2,11 +2,8 @@
 <template>
   <v-container class="mt-5">
     <v-row justify="center" dense>
-      <v-col
-        v-if="['James', 'Mega', 'Olivia'].includes(user.name)"
-        class="text-center"
-      >
-        <v-btn color="blue" @click="isDialog = true"> 輸入比賽結果 </v-btn>
+      <v-col v-if="['James', 'Mega', 'Olivia'].includes(user.name)" class="text-center">
+        <v-btn color="blue" @click="isDialog = true">輸入比賽結果</v-btn>
       </v-col>
       <v-col cols="12">
         <h3 class="text-center">比賽順序於當日由各選手抽籤決定</h3>
@@ -15,49 +12,60 @@
         <h3 class="text-center">目前比賽</h3>
         <h1 class="text-center">
           A
-          <v-icon class="mt-n1" icon="mdi-arrow-left-right-bold"></v-icon>
-          B
+          <v-icon class="mt-n1" icon="mdi-arrow-left-right-bold"></v-icon>B
         </h1>
       </v-col>
       <v-col cols="12">
         <h3 class="text-center">請選手們移至比賽場地</h3>
         <h3 class="text-center">下一組 C vs D 選手預備</h3>
       </v-col>
+      <v-col cols="12" class="text-center" style="position: relative; top: 96px;margin-top: -90px">
+        <svg width="90" height="90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path
+            d="M5 16L3 5L8.5 10L12 4L15.5 10L21 5L19 16H5M19 19C19 19.6 18.6 20 18 20H6C5.4 20 5 19.6 5 19V18H19V19Z"
+          />
+        </svg>
+      </v-col>
       <v-col cols="12" class="text-center">
-        <svg width="500" height="500" xmlns="http://www.w3.org/2000/svg">
-          <!-- 中央頂點 -->
-          <circle cx="250" cy="50" r="10" fill="none" stroke="black" />
-          <!-- 左邊的結構 -->
-          <line x1="250" y1="50" x2="100" y2="150" stroke="black" />
-          <line x1="100" y1="150" x2="50" y2="200" stroke="black" />
-          <line x1="100" y1="150" x2="150" y2="200" stroke="black" />
-          <line x1="150" y1="200" x2="50" y2="200" stroke="black" />
-          <text x="40" y="210" fill="black">B</text>
-          <text x="140" y="210" fill="black">C</text>
-          <text x="90" y="145" fill="black">A</text>
+        <svg width="400" height="300">
+          <!-- 上方圓形 -->
+          <!-- <circle cx="200" cy="50" r="20" stroke="black" stroke-width="2" fill="white" /> -->
 
-          <!-- 右邊的結構 -->
-          <line x1="250" y1="50" x2="400" y2="150" stroke="black" />
-          <line x1="400" y1="150" x2="350" y2="200" stroke="black" />
-          <line x1="400" y1="150" x2="450" y2="200" stroke="black" />
-          <line x1="350" y1="200" x2="450" y2="200" stroke="black" />
-          <text x="340" y="210" fill="black">E</text>
-          <text x="440" y="210" fill="black">F</text>
-          <text x="390" y="145" fill="black">D</text>
+          <!-- 左側三角形 -->
+          <polygon
+            points="100,150 150,250 50,250"
+            stroke="black"
+            stroke-width="2"
+            fill="transparent"
+          />
+          <text x="85" y="145" font-family="Verdana" font-size="20" fill="black">A</text>
+          <text x="30" y="260" font-family="Verdana" font-size="20" fill="black">B</text>
+          <text x="155" y="260" font-family="Verdana" font-size="20" fill="black">C</text>
+
+          <!-- 右側三角形 -->
+          <polygon
+            points="300,150 350,250 250,250"
+            stroke="black"
+            stroke-width="2"
+            fill="transparent"
+          />
+          <text x="300" y="145" font-family="Verdana" font-size="20" fill="black">D</text>
+          <text x="230" y="260" font-family="Verdana" font-size="20" fill="black">E</text>
+          <text x="355" y="260" font-family="Verdana" font-size="20" fill="black">F</text>
+
+          <!-- 連接圓形與三角形的線 -->
+          <line x1="200" y1="70" x2="100" y2="150" stroke="black" stroke-width="2" />
+          <line x1="200" y1="70" x2="300" y2="150" stroke="black" stroke-width="2" />
         </svg>
       </v-col>
       <v-col cols="12" lg="6">
         <v-row>
-          <v-col><h2>積分表</h2></v-col>
+          <v-col>
+            <h2>積分表</h2>
+          </v-col>
           <v-col class="text-right">
-            <v-btn
-              variant="text"
-              color="cyan"
-              :loading="isLoadingGetQtyData"
-              @click="refresh()"
-            >
-              <v-icon>mdi-sync</v-icon>
-              更新資料
+            <v-btn variant="text" color="cyan" :loading="isLoadingGetQtyData" @click="refresh()">
+              <v-icon>mdi-sync</v-icon>更新資料
             </v-btn>
           </v-col>
         </v-row>
@@ -95,27 +103,25 @@
           <tbody>
             <tr v-for="data in contentList" :key="data.name">
               <td>{{ `${data.group_one} vs ${data.group_two}` }}</td>
-              <td>
-                {{ `${data.group_one_scores} - ${data.group_two_scores}` }}
-              </td>
+              <td>{{ `${data.group_one_scores} - ${data.group_two_scores}` }}</td>
               <td>
                 {{
-                  (data.group_one_scores &&
-                    data.group_two_scores &&
-                    (data.group_one_scores > data.group_two_scores
-                      ? data.group_one
-                      : data.group_two)) ||
-                  ""
+                (data.group_one_scores &&
+                data.group_two_scores &&
+                (data.group_one_scores > data.group_two_scores
+                ? data.group_one
+                : data.group_two)) ||
+                ""
                 }}
               </td>
               <td>
                 {{
-                  (data.group_one_scores &&
-                    data.group_two_scores &&
-                    (data.group_one_scores > data.group_two_scores
-                      ? data.group_two
-                      : data.group_one)) ||
-                  ""
+                (data.group_one_scores &&
+                data.group_two_scores &&
+                (data.group_one_scores > data.group_two_scores
+                ? data.group_two
+                : data.group_one)) ||
+                ""
                 }}
               </td>
             </tr>
@@ -128,9 +134,7 @@
         <v-row justify="center">
           <v-col cols="12" lg="6">
             <v-card>
-              <v-card-title
-                class="bg-blue text-white d-flex justify-space-between align-center"
-              >
+              <v-card-title class="bg-blue text-white d-flex justify-space-between align-center">
                 輸入比賽結果
                 <v-btn
                   icon="mdi-close"
@@ -203,9 +207,7 @@
                         !group_two_scores
                       "
                       @click="updateScores()"
-                    >
-                      送出
-                    </v-btn>
+                    >送出</v-btn>
                   </v-col>
                 </v-row>
               </v-card-text>
@@ -231,11 +233,11 @@ export default {
       isDialog: false,
       isLoadingGetQtyData: false,
       scoreList: [],
-      contentList: [],
+      contentList: []
     };
   },
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user"])
   },
   async created() {
     await this.refresh();
@@ -276,7 +278,7 @@ export default {
             group_one: this.group_one,
             group_two: this.group_two,
             group_one_scores: this.group_one_scores,
-            group_two_scores: this.group_two_scores,
+            group_two_scores: this.group_two_scores
           }
         );
         this.isDialog = false;
@@ -294,8 +296,8 @@ export default {
         this.message = errorMessage;
         this.colorSnackbar = "red";
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

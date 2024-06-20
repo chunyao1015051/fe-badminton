@@ -23,97 +23,43 @@
         <h3 class="text-center">請選手們移至比賽場地</h3>
         <h3 class="text-center">下一組 C vs D 選手預備</h3>
       </v-col>
+      <v-col cols="12" class="text-center" style="position: relative; top: 96px;margin-top: -90px">
+        <svg width="90" height="90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path
+            d="M5 16L3 5L8.5 10L12 4L15.5 10L21 5L19 16H5M19 19C19 19.6 18.6 20 18 20H6C5.4 20 5 19.6 5 19V18H19V19Z"
+          />
+        </svg>
+      </v-col>
       <v-col cols="12" class="text-center">
-        <svg width="250" height="250" viewBox="-120 -120 250 250">
-          <!-- 六邊形 -->
+        <svg width="400" height="300">
+          <!-- 上方圓形 -->
+          <!-- <circle cx="200" cy="50" r="20" stroke="black" stroke-width="2" fill="white" /> -->
+
+          <!-- 左側三角形 -->
           <polygon
-            points="100,0 50,86.6 -50,86.6 -100,0 -50,-86.6 50,-86.6"
-            fill="transparent"
+            points="100,150 150,250 50,250"
             stroke="black"
             stroke-width="2"
+            fill="transparent"
           />
+          <text x="85" y="145" font-family="Verdana" font-size="20" fill="black">A</text>
+          <text x="30" y="260" font-family="Verdana" font-size="20" fill="black">B</text>
+          <text x="155" y="260" font-family="Verdana" font-size="20" fill="black">C</text>
 
-          <!-- 對角線 -->
-          <line
-            x1="100"
-            y1="0"
-            x2="-100"
-            y2="0"
+          <!-- 右側三角形 -->
+          <polygon
+            points="300,150 350,250 250,250"
             stroke="black"
-            stroke-width="1"
+            stroke-width="2"
+            fill="transparent"
           />
-          <line
-            x1="50"
-            y1="86.6"
-            x2="-50"
-            y2="-86.6"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="-50"
-            y1="86.6"
-            x2="50"
-            y2="-86.6"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="100"
-            y1="0"
-            x2="-50"
-            y2="86.6"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="100"
-            y1="0"
-            x2="-50"
-            y2="-86.6"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="50"
-            y1="86.6"
-            x2="-100"
-            y2="0"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="-50"
-            y1="86.6"
-            x2="50"
-            y2="-86.6"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="-100"
-            y1="0"
-            x2="50"
-            y2="86.6"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="-100"
-            y1="0"
-            x2="50"
-            y2="-86.6"
-            stroke="black"
-            stroke-width="1"
-          />
+          <text x="300" y="145" font-family="Verdana" font-size="20" fill="black">D</text>
+          <text x="230" y="260" font-family="Verdana" font-size="20" fill="black">E</text>
+          <text x="355" y="260" font-family="Verdana" font-size="20" fill="black">F</text>
 
-          <!-- 標示角 -->
-          <text x="110" y="0" font-size="20" fill="black">D</text>
-          <text x="55" y="96.6" font-size="20" fill="black">F</text>
-          <text x="-65" y="96.6" font-size="20" fill="black">E</text>
-          <text x="-120" y="0" font-size="20" fill="black">C</text>
-          <text x="-65" y="-96.6" font-size="20" fill="black">A</text>
-          <text x="55" y="-96.6" font-size="20" fill="black">B</text>
+          <!-- 連接圓形與三角形的線 -->
+          <line x1="200" y1="70" x2="100" y2="150" stroke="black" stroke-width="2" />
+          <line x1="200" y1="70" x2="300" y2="150" stroke="black" stroke-width="2" />
         </svg>
       </v-col>
       <v-col cols="12" lg="6">
