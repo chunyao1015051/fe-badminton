@@ -75,7 +75,9 @@
                   color="amber-darken-1"
                   size="small"
                   variant="tonal"
-                  @click="(isOpenInfoDialog = true), (category = '大班')"
+                  @click="
+                    (isOpenInfoDialog = true), (category = '大班'), (panel = [])
+                  "
                 >
                   <v-icon> mdi-information-outline </v-icon>
                   更多資訊
@@ -291,7 +293,7 @@
       </template>
     </v-snackbar>
 
-    <v-dialog v-model="isOpenInfoDialog" scrollable>
+    <v-dialog v-model="isOpenInfoDialog" scrollable width="auto">
       <template v-slot:default="{ isActive }">
         <v-row justify="center">
           <v-col cols="12" lg="6">
@@ -329,7 +331,10 @@
                       總瓜量： {{ category === "幼幼班" ? qtyOne : qtyTwo }}
                     </h3>
                   </v-col>
-                  <v-col cols="12">
+                  <v-col
+                    cols="12"
+                    style="max-height: calc(100vh - 430px); overflow: auto"
+                  >
                     <v-expansion-panels v-model="panel" multiple elevation="4">
                       <v-expansion-panel
                         v-for="(team, index) of category === '幼幼班'
