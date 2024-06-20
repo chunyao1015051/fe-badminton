@@ -37,7 +37,7 @@ export default defineConfig({
   ],
   define: {
     "process.env": {
-      SERVER_HOST: "localhost:3001",
+      SERVER_HOST: "220.135.155.96:3001",
     },
   },
   resolve: {
