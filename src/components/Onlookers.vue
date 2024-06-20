@@ -348,8 +348,20 @@
                       >
                         <v-expansion-panel-title>
                           <v-row dense>
-                            <v-col class="mt-2">
-                              <h2>{{ team }}</h2>
+                            <v-col>
+                              <h2>
+                                {{ team }}
+                                <v-chip
+                                  v-for="el of groupedData[
+                                    category === '幼幼班' ? 1 : 0
+                                  ].groups[index].members"
+                                  :key="el.name"
+                                  label
+                                  :color="colors[index]"
+                                  class="mx-1"
+                                  >{{ el.name }}</v-chip
+                                >
+                              </h2>
                             </v-col>
                             <v-col class="text-right">
                               <v-chip label :color="colors[index]">
@@ -572,6 +584,7 @@ export default {
           `http://${process.env.SERVER_HOST}/getMemberGroupedData`
         );
         this.groupedData = groupedData;
+        console.log(groupedData);
       } catch (error) {
         const {
           response: { data, status },

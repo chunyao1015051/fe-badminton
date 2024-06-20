@@ -24,96 +24,26 @@
         <h3 class="text-center">下一組 C vs D 選手預備</h3>
       </v-col>
       <v-col cols="12" class="text-center">
-        <svg width="250" height="250" viewBox="-120 -120 250 250">
-          <!-- 六邊形 -->
-          <polygon
-            points="100,0 50,86.6 -50,86.6 -100,0 -50,-86.6 50,-86.6"
-            fill="transparent"
-            stroke="black"
-            stroke-width="2"
-          />
+        <svg width="500" height="500" xmlns="http://www.w3.org/2000/svg">
+          <!-- 中央頂點 -->
+          <circle cx="250" cy="50" r="10" fill="none" stroke="black" />
+          <!-- 左邊的結構 -->
+          <line x1="250" y1="50" x2="100" y2="150" stroke="black" />
+          <line x1="100" y1="150" x2="50" y2="200" stroke="black" />
+          <line x1="100" y1="150" x2="150" y2="200" stroke="black" />
+          <line x1="150" y1="200" x2="50" y2="200" stroke="black" />
+          <text x="40" y="210" fill="black">B</text>
+          <text x="140" y="210" fill="black">C</text>
+          <text x="90" y="145" fill="black">A</text>
 
-          <!-- 對角線 -->
-          <line
-            x1="100"
-            y1="0"
-            x2="-100"
-            y2="0"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="50"
-            y1="86.6"
-            x2="-50"
-            y2="-86.6"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="-50"
-            y1="86.6"
-            x2="50"
-            y2="-86.6"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="100"
-            y1="0"
-            x2="-50"
-            y2="86.6"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="100"
-            y1="0"
-            x2="-50"
-            y2="-86.6"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="50"
-            y1="86.6"
-            x2="-100"
-            y2="0"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="-50"
-            y1="86.6"
-            x2="50"
-            y2="-86.6"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="-100"
-            y1="0"
-            x2="50"
-            y2="86.6"
-            stroke="black"
-            stroke-width="1"
-          />
-          <line
-            x1="-100"
-            y1="0"
-            x2="50"
-            y2="-86.6"
-            stroke="black"
-            stroke-width="1"
-          />
-
-          <!-- 標示角 -->
-          <text x="110" y="0" font-size="20" fill="black">D</text>
-          <text x="55" y="96.6" font-size="20" fill="black">F</text>
-          <text x="-65" y="96.6" font-size="20" fill="black">E</text>
-          <text x="-120" y="0" font-size="20" fill="black">C</text>
-          <text x="-65" y="-96.6" font-size="20" fill="black">A</text>
-          <text x="55" y="-96.6" font-size="20" fill="black">B</text>
+          <!-- 右邊的結構 -->
+          <line x1="250" y1="50" x2="400" y2="150" stroke="black" />
+          <line x1="400" y1="150" x2="350" y2="200" stroke="black" />
+          <line x1="400" y1="150" x2="450" y2="200" stroke="black" />
+          <line x1="350" y1="200" x2="450" y2="200" stroke="black" />
+          <text x="340" y="210" fill="black">E</text>
+          <text x="440" y="210" fill="black">F</text>
+          <text x="390" y="145" fill="black">D</text>
         </svg>
       </v-col>
       <v-col cols="12" lg="6">
