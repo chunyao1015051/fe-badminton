@@ -342,9 +342,7 @@
                   >
                     <v-expansion-panels v-model="panel" multiple>
                       <v-expansion-panel
-                        v-for="(team, index) of category === '幼幼班'
-                          ? ['A', 'B', 'C', 'D']
-                          : ['A', 'B', 'C', 'D', 'E']"
+                        v-for="(team, index) of ['A', 'B', 'C', 'D', 'E', 'F']"
                         :key="category + team"
                         :value="team"
                       >
@@ -433,12 +431,26 @@ export default {
   },
   data() {
     return {
-      colors: ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"],
+      colors: [
+        "#008FFB",
+        "#00E396",
+        "#FEB019",
+        "#FF4560",
+        "#775DD0",
+        "#9C27B0",
+      ],
       panel: [],
-      seriesOne: [0, 0, 0, 0],
-      seriesTwo: [0, 0, 0, 0, 0],
+      seriesOne: [0, 0, 0, 0, 0, 0],
+      seriesTwo: [0, 0, 0, 0, 0, 0],
       chartOptionsOne: {
-        colors: ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"],
+        colors: [
+          "#008FFB",
+          "#00E396",
+          "#FEB019",
+          "#FF4560",
+          "#775DD0",
+          "#9C27B0",
+        ],
         chart: {
           animations: {
             enabled: true,
@@ -457,7 +469,7 @@ export default {
         legend: {
           position: "bottom",
         },
-        labels: ["A", "B", "C", "D"],
+        labels: ["A", "B", "C", "D", "E", "F"],
       },
       chartOptionsTwo: {
         colors: ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"],
@@ -467,7 +479,7 @@ export default {
         legend: {
           position: "bottom",
         },
-        labels: ["A", "B", "C", "D", "E"],
+        labels: ["A", "B", "C", "D", "E", "F"],
       },
       isOpenInfoDialog: false,
       qtyOne: 0,
