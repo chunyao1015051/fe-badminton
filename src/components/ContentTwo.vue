@@ -82,7 +82,7 @@
             </v-btn>
           </v-col>
         </v-row>
-        <v-table fixed-header density="compact" class="elevation-3">
+        <v-table fixed-header density="compact" class="elevation-3 rounded-lg">
           <thead>
             <tr>
               <th class="text-left">組別</th>
@@ -103,7 +103,7 @@
       </v-col>
       <v-col cols="12" lg="6">
         <h2>賽程表</h2>
-        <v-table fixed-header density="compact" class="elevation-3">
+        <v-table fixed-header density="compact" class="elevation-3 rounded-lg">
           <thead>
             <tr>
               <th class="text-left">比賽</th>
