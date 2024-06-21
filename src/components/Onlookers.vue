@@ -112,7 +112,7 @@
                 </v-sheet>
                 <v-sheet color="transparent"> 目前排名： </v-sheet>
               </v-col>
-              <v-col>
+              <v-col v-if="!['wei'].includes(user.name)">
                 <v-btn color="green" block @click="
                   (isOpenDialog = true),
                   (category = data._id),
