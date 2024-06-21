@@ -479,7 +479,6 @@ export default {
           `http://${process.env.SERVER_HOST}/getMemberGroupedData`
         );
         this.groupedData = groupedData;
-        console.log(groupedData);
       } catch (error) {
         const {
           response: { data, status },
