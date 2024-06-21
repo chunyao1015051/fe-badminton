@@ -234,7 +234,7 @@
               <v-card-text>
                 <v-row dense>
                   <v-col cols="12">
-                    <apexchart height="300" type="pie" :options="category === '幼幼班'
+                    <apexchart height="200" type="pie" :options="category === '幼幼班'
                       ? chartOptionsOne
                       : chartOptionsTwo
                       " :series="category === '幼幼班' ? seriesOne : seriesTwo"></apexchart>
@@ -248,7 +248,7 @@
                       公式：總瓜量 × 50 × (個人該組投資瓜量 ÷ 該組總瓜量)
                     </h5>
                   </v-col>
-                  <v-col cols="12" style="max-height: calc(100vh - 460px); overflow: auto">
+                  <v-col cols="12" style="max-height: calc(100vh - 430px); overflow: auto">
                     <v-expansion-panels v-model="panel" multiple>
                       <v-expansion-panel v-for="(team, index) of
                       ['A', 'B', 'C', 'D', 'E', 'F']" :key="category + team" :value="team">
