@@ -3,7 +3,8 @@
   <v-container class="mt-5">
     <v-row justify="center" dense>
       <v-col v-if="['James', 'Mega', 'Olivia'].includes(user.name)" class="text-center">
-        <v-btn color="blue" @click="isDialog = true">輸入比賽結果</v-btn>
+        <v-btn class="mr-7" color="blue" @click="isDialog = true">輸入比賽結果</v-btn>
+        <v-btn color="red-accent-2" @click="isStatusDialog = true">更新賽事狀態</v-btn>
       </v-col>
       <v-col cols="12">
         <h3 class="text-center">比賽順序於當日由各選手抽籤決定</h3>
@@ -11,13 +12,13 @@
       <v-col cols="12">
         <h3 class="text-center">目前比賽</h3>
         <h1 class="text-center">
-          A
-          <v-icon class="mt-n1" icon="mdi-arrow-left-right-bold"></v-icon>B
+          {{ nowLeft }}
+          <v-icon class="mt-n1" icon="mdi-arrow-left-right-bold"></v-icon>{{ nowRight }}
         </h1>
       </v-col>
       <v-col cols="12">
         <h3 class="text-center">請選手們移至比賽場地</h3>
-        <h3 class="text-center">下一組 C vs D 選手預備</h3>
+        <h3 class="text-center">下一組 {{ nextLeft }} vs {{ nextRight }} 選手預備</h3>
       </v-col>
       <v-col cols="12" class="text-center" style="position: relative; top: 96px; margin-top: -90px">
         <svg width="100" height="100" style="enable-background: new 0 0 128 128" version="1.1" viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
@@ -190,6 +191,70 @@
         </v-row>
       </template>
     </v-dialog>
+
+
+    <v-dialog v-model="isStatusDialog">
+      <template v-slot:default="{ isActive }">
+        <v-row justify="center">
+          <v-col cols="12" lg="6">
+            <v-card>
+              <v-card-title class="bg-blue text-white d-flex justify-space-between align-center">
+                更新賽事狀態
+                <v-btn icon="mdi-close" variant="text" color="white" @click="isActive.value = false"></v-btn>
+              </v-card-title>
+              <v-card-text>
+                <v-row dense class="mt-3">
+                  <v-col cols="12">
+                    <h2>現在</h2>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-select v-model="nowLeft" label="隊伍_左" :items="['A', 'B', 'C', 'D', 'E', 'F'].filter(
+                      (el) =>
+                        !nowRight ||
+                        (nowRight && el.charCodeAt(0) < nowRight.charCodeAt(0))
+                    )
+                      "></v-select>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-select v-model="nowRight" label="隊伍_右" :items="['A', 'B', 'C', 'D', 'E', 'F'].filter(
+                      (el) =>
+                        !nowLeft ||
+                        (nowLeft && el.charCodeAt(0) > nowLeft.charCodeAt(0))
+                    )
+                      "></v-select>
+                  </v-col>
+                  <v-col cols="12">
+                    <h2>
+                      下一場
+                    </h2>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-select v-model="nextLeft" label="隊伍_左" :items="['A', 'B', 'C', 'D', 'E', 'F'].filter(
+                      (el) =>
+                        !nextRight ||
+                        (nextRight && el.charCodeAt(0) < nextRight.charCodeAt(0))
+                    )
+                      "></v-select>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-select v-model="nextRight" label="隊伍_右" :items="['A', 'B', 'C', 'D', 'E', 'F'].filter(
+                      (el) =>
+                        !nextLeft ||
+                        (nextLeft && el.charCodeAt(0) > nextLeft.charCodeAt(0))
+                    )
+                      "></v-select>
+                  </v-col>
+                  <v-col col="12">
+                    <v-btn variant="tonal" color="green" block :disabled="!nowLeft || !nowRight || !nextLeft || !nextRight
+                      " @click="updateSatus()">送出</v-btn>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </template>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -205,6 +270,11 @@ export default {
       group_one_scores: null,
       group_two_scores: null,
       isDialog: false,
+      isStatusDialog: false,
+      nowLeft: null,
+      nowRight: null,
+      nextLeft: null,
+      nextRight: null,
       isLoadingGetQtyData: false,
       scoreList: [],
       contentList: [],
@@ -223,6 +293,7 @@ export default {
       try {
         await this.getScores();
         await this.getStandings();
+        await this.getStatus();
       } catch (error) {
         //
       }
@@ -234,6 +305,19 @@ export default {
         `http://${process.env.SERVER_HOST}/getScores/幼幼班`
       );
       this.contentList = await data;
+    },
+    async getStatus() {
+      const { data } = await axios.get(
+        `http://${process.env.SERVER_HOST}/getStatus/幼幼班`
+      );
+      const { nowLeft,
+        nowRight,
+        nextLeft,
+        nextRight } = await data
+      this.nowLeft = nowLeft
+      this.nowRight = nowRight
+      this.nextLeft = nextLeft
+      this.nextRight = nextRight
     },
     async getStandings() {
       const { data } = await axios.get(
@@ -253,6 +337,34 @@ export default {
           group_two_scores: this.group_two_scores,
         });
         this.isDialog = false;
+        await this.refresh();
+      } catch (error) {
+        let errorMessage = "";
+        const { code, response } = error;
+        if (code === "ERR_NETWORK") {
+          errorMessage = "伺服器斷線，趕快聯絡！";
+        } else if (response) {
+          errorMessage = response.data;
+        }
+
+        this.isOpenSnackbar = true;
+        this.message = errorMessage;
+        this.colorSnackbar = "red";
+      }
+    },
+    async updateSatus() {
+      console.log(123);
+      if (!confirm("是否確認?")) {
+        return;
+      }
+      try {
+        await axios.post(`http://${process.env.SERVER_HOST}/updateStatus/幼幼班`, {
+          nowLeft: this.nowLeft,
+          nowRight: this.nowRight,
+          nextLeft: this.nextLeft,
+          nextRight: this.nextRight,
+        });
+        this.isStatusDialog = false;
         await this.refresh();
       } catch (error) {
         let errorMessage = "";

@@ -3,7 +3,8 @@
   <v-container class="mt-5">
     <v-row justify="center" dense>
       <v-col v-if="['James', 'Mega', 'Olivia'].includes(user.name)" class="text-center">
-        <v-btn color="blue" @click="isDialog = true"> 輸入比賽結果 </v-btn>
+        <v-btn class="mr-7" color="blue" @click="isDialog = true">輸入比賽結果</v-btn>
+        <v-btn color="red-accent-2" @click="isStatusDialog = true">更新賽事狀態</v-btn>
       </v-col>
       <v-col cols="12">
         <h3 class="text-center">比賽順序於當日由各選手抽籤決定</h3>
@@ -11,14 +12,13 @@
       <v-col cols="12">
         <h3 class="text-center">目前比賽</h3>
         <h1 class="text-center">
-          A
-          <v-icon class="mt-n1" icon="mdi-arrow-left-right-bold"></v-icon>
-          B
+          {{ nowLeft }}
+          <v-icon class="mt-n1" icon="mdi-arrow-left-right-bold"></v-icon>{{ nowRight }}
         </h1>
       </v-col>
       <v-col cols="12">
         <h3 class="text-center">請選手們移至比賽場地</h3>
-        <h3 class="text-center">下一組 C vs D 選手預備</h3>
+        <h3 class="text-center">下一組 {{ nextLeft }} vs {{ nextRight }} 選手預備</h3>
       </v-col>
       <v-col cols="12" class="text-center" style="position: relative; top: 96px; margin-top: -90px">
         <svg width="100" height="100" style="enable-background: new 0 0 128 128" version="1.1" viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
@@ -83,11 +83,11 @@
           </v-col>
           <v-col class="text-right">
             <v-btn variant="text" color="cyan" :loading="isLoadingGetQtyData" @click="refresh()">
-              <v-icon>mdi-sync</v-icon>
-              更新資料
+              <v-icon>mdi-sync</v-icon>更新資料
             </v-btn>
           </v-col>
         </v-row>
+
         <v-table fixed-header density="compact" class="elevation-3 rounded-lg">
           <thead>
             <tr>
@@ -121,9 +121,7 @@
           <tbody>
             <tr v-for="data in contentList" :key="data.name">
               <td>{{ `${data.group_one} vs ${data.group_two}` }}</td>
-              <td>
-                {{ `${data.group_one_scores} - ${data.group_two_scores}` }}
-              </td>
+              <td>{{ `${data.group_one_scores} - ${data.group_two_scores}` }}</td>
               <td>
                 {{
                   (data.group_one_scores &&
@@ -149,7 +147,6 @@
         </v-table>
       </v-col>
     </v-row>
-
     <v-dialog v-model="isDialog">
       <template v-slot:default="{ isActive }">
         <v-row justify="center">
@@ -185,9 +182,71 @@
                   </v-col>
                   <v-col col="12">
                     <v-btn variant="tonal" color="green" block :disabled="!group_one || !group_two || !group_one_scores || !group_two_scores
-                      " @click="updateScores()">
-                      送出
-                    </v-btn>
+                      " @click="updateScores()">送出</v-btn>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </template>
+    </v-dialog>
+
+
+    <v-dialog v-model="isStatusDialog">
+      <template v-slot:default="{ isActive }">
+        <v-row justify="center">
+          <v-col cols="12" lg="6">
+            <v-card>
+              <v-card-title class="bg-blue text-white d-flex justify-space-between align-center">
+                更新賽事狀態
+                <v-btn icon="mdi-close" variant="text" color="white" @click="isActive.value = false"></v-btn>
+              </v-card-title>
+              <v-card-text>
+                <v-row dense class="mt-3">
+                  <v-col cols="12">
+                    <h2>現在</h2>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-select v-model="nowLeft" label="隊伍_左" :items="['A', 'B', 'C', 'D', 'E', 'F'].filter(
+                      (el) =>
+                        !nowRight ||
+                        (nowRight && el.charCodeAt(0) < nowRight.charCodeAt(0))
+                    )
+                      "></v-select>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-select v-model="nowRight" label="隊伍_右" :items="['A', 'B', 'C', 'D', 'E', 'F'].filter(
+                      (el) =>
+                        !nowLeft ||
+                        (nowLeft && el.charCodeAt(0) > nowLeft.charCodeAt(0))
+                    )
+                      "></v-select>
+                  </v-col>
+                  <v-col cols="12">
+                    <h2>
+                      下一場
+                    </h2>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-select v-model="nextLeft" label="隊伍_左" :items="['A', 'B', 'C', 'D', 'E', 'F'].filter(
+                      (el) =>
+                        !nextRight ||
+                        (nextRight && el.charCodeAt(0) < nextRight.charCodeAt(0))
+                    )
+                      "></v-select>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-select v-model="nextRight" label="隊伍_右" :items="['A', 'B', 'C', 'D', 'E', 'F'].filter(
+                      (el) =>
+                        !nextLeft ||
+                        (nextLeft && el.charCodeAt(0) > nextLeft.charCodeAt(0))
+                    )
+                      "></v-select>
+                  </v-col>
+                  <v-col col="12">
+                    <v-btn variant="tonal" color="green" block :disabled="!nowLeft || !nowRight || !nextLeft || !nextRight
+                      " @click="updateSatus()">送出</v-btn>
                   </v-col>
                 </v-row>
               </v-card-text>
@@ -211,6 +270,11 @@ export default {
       group_one_scores: null,
       group_two_scores: null,
       isDialog: false,
+      isStatusDialog: false,
+      nowLeft: null,
+      nowRight: null,
+      nextLeft: null,
+      nextRight: null,
       isLoadingGetQtyData: false,
       scoreList: [],
       contentList: [],
@@ -229,9 +293,11 @@ export default {
       try {
         await this.getScores();
         await this.getStandings();
+        await this.getStatus();
       } catch (error) {
         //
       }
+
       this.isLoadingGetQtyData = false;
     },
     async getScores() {
@@ -240,6 +306,19 @@ export default {
       );
       this.contentList = await data;
     },
+    async getStatus() {
+      const { data } = await axios.get(
+        `http://${process.env.SERVER_HOST}/getStatus/大班`
+      );
+      const { nowLeft,
+        nowRight,
+        nextLeft,
+        nextRight } = await data
+      this.nowLeft = nowLeft
+      this.nowRight = nowRight
+      this.nextLeft = nextLeft
+      this.nextRight = nextRight
+    },
     async getStandings() {
       const { data } = await axios.get(
         `http://${process.env.SERVER_HOST}/getStandings/大班`
@@ -247,6 +326,9 @@ export default {
       this.scoreList = await data;
     },
     async updateScores() {
+      if (!confirm("是否確認?")) {
+        return;
+      }
       try {
         await axios.post(`http://${process.env.SERVER_HOST}/updateScores/大班`, {
           group_one: this.group_one,
@@ -270,8 +352,255 @@ export default {
         this.colorSnackbar = "red";
       }
     },
+    async updateSatus() {
+      console.log(123);
+      if (!confirm("是否確認?")) {
+        return;
+      }
+      try {
+        await axios.post(`http://${process.env.SERVER_HOST}/updateStatus/大班`, {
+          nowLeft: this.nowLeft,
+          nowRight: this.nowRight,
+          nextLeft: this.nextLeft,
+          nextRight: this.nextRight,
+        });
+        this.isStatusDialog = false;
+        await this.refresh();
+      } catch (error) {
+        let errorMessage = "";
+        const { code, response } = error;
+        if (code === "ERR_NETWORK") {
+          errorMessage = "伺服器斷線，趕快聯絡！";
+        } else if (response) {
+          errorMessage = response.data;
+        }
+
+        this.isOpenSnackbar = true;
+        this.message = errorMessage;
+        this.colorSnackbar = "red";
+      }
+    },
   },
 };
 </script>
 
-<style></style>
+<style type="text/css">
+.st0 {
+  fill: #382673;
+}
+
+.st1 {
+  fill: #473080;
+}
+
+.st2 {
+  fill: #007bc6;
+}
+
+.st3 {
+  fill: #d44a90;
+}
+
+.st4 {
+  fill: #a72973;
+}
+
+.st5 {
+  fill: #f15a9e;
+}
+
+.st6 {
+  opacity: 0.4;
+  fill: #0cafe8;
+}
+
+.st7 {
+  opacity: 0.5;
+  fill: #382673;
+}
+
+.st8 {
+  fill: #0cafe8;
+}
+
+.st9 {
+  fill: #0b90d3;
+}
+
+.st10 {
+  opacity: 0.3;
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+.st11 {
+  fill: #8f58b2;
+}
+
+.st12 {
+  fill: #6e4ca0;
+}
+
+.st13 {
+  fill: #f375ad;
+}
+
+.st14 {
+  fill: #ffde39;
+}
+
+.st15 {
+  fill: #fec632;
+}
+
+.st16 {
+  fill: #f9a74e;
+}
+
+.st17 {
+  fill: #da6a2d;
+}
+
+.st18 {
+  fill: #9edd9a;
+}
+
+.st19 {
+  fill: #00c2a9;
+}
+
+.st20 {
+  fill: #00a58c;
+}
+
+.st21 {
+  fill: #037c68;
+}
+
+.st22 {
+  fill: #9ac0db;
+}
+
+.st23 {
+  fill: #ffffff;
+}
+
+.st24 {
+  opacity: 0.2;
+  fill: #382673;
+}
+
+.st25 {
+  opacity: 0.4;
+  fill: #473080;
+}
+
+.st26 {
+  opacity: 0.1;
+  fill: #382673;
+}
+
+.st27 {
+  fill: none;
+  stroke: #ffde39;
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+.st28 {
+  fill: none;
+  stroke: #f9a74e;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+.st29 {
+  fill: none;
+  stroke: #fec632;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+.st30 {
+  fill: none;
+  stroke: #00a58c;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+.st31 {
+  fill: none;
+  stroke: #d44a90;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+.st32 {
+  fill: none;
+  stroke: #007bc6;
+  stroke-width: 2.2439;
+  stroke-miterlimit: 10;
+}
+
+.st33 {
+  fill: none;
+  stroke: #f15a9e;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+}
+
+.st34 {
+  opacity: 0.2;
+  fill: none;
+  stroke: #382673;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+.st35 {
+  fill: none;
+  stroke: #f15a9e;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+}
+
+.st36 {
+  fill: none;
+  stroke: #f9a74e;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
+.st37 {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+}
+
+.st38 {
+  opacity: 0.4;
+  fill: #382673;
+}
+</style>
