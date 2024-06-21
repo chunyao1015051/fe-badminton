@@ -2,7 +2,7 @@
 <template>
   <v-container class="mt-5">
     <v-row justify="center" dense>
-      <v-col v-if="['James', 'Mega', 'Olivia'].includes(user.name)" class="text-center">
+      <v-col v-if="['James', 'Mega', 'Olivia', 'wei'].includes(user.name)" class="text-center">
         <v-btn class="mr-7" color="blue" @click="isDialog = true">輸入比賽結果</v-btn>
         <v-btn color="red-accent-2" @click="isStatusDialog = true">更新賽事狀態</v-btn>
       </v-col>
