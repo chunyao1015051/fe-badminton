@@ -379,7 +379,7 @@ export default {
         labels: ["A", "B", "C", "D", "E", "F"],
       },
       chartOptionsTwo: {
-        colors: ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0"],
+        colors: ["#008FFB", "#00E396", "#FEB019", "#FF4560", "#775DD0", "#9C27B0",],
         chart: {
           width: "100%",
         },
