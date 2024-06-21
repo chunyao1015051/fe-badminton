@@ -9,12 +9,7 @@
         <h5>1瓜 = 50$</h5>
       </v-col>
       <v-col cols="12" lg="7" class="text-right mb-n1 mt-n6">
-        <v-btn
-          variant="text"
-          color="cyan"
-          :loading="isLoadingGetQtyData"
-          @click="refresh()"
-        >
+        <v-btn variant="text" color="cyan" :loading="isLoadingGetQtyData" @click="refresh()">
           <v-icon>mdi-sync</v-icon>
           更新資料
         </v-btn>
@@ -42,16 +37,11 @@
               </v-list>
               <template v-slot:actions>
                 <v-spacer></v-spacer>
-                <v-btn
-                  color="amber-darken-1"
-                  size="small"
-                  variant="tonal"
-                  @click="
-                    (isOpenInfoDialog = true),
-                      (category = '幼幼班'),
-                      (panel = [])
-                  "
-                >
+                <v-btn color="amber-darken-1" size="small" variant="tonal" @click="
+                  (isOpenInfoDialog = true),
+                  (category = '幼幼班'),
+                  (panel = [])
+                  ">
                   <v-icon> mdi-information-outline </v-icon>
                   更多資訊
                 </v-btn>
@@ -71,14 +61,9 @@
               </v-list>
               <template v-slot:actions>
                 <v-spacer></v-spacer>
-                <v-btn
-                  color="amber-darken-1"
-                  size="small"
-                  variant="tonal"
-                  @click="
-                    (isOpenInfoDialog = true), (category = '大班'), (panel = [])
-                  "
-                >
+                <v-btn color="amber-darken-1" size="small" variant="tonal" @click="
+                  (isOpenInfoDialog = true), (category = '大班'), (panel = [])
+                  ">
                   <v-icon> mdi-information-outline </v-icon>
                   更多資訊
                 </v-btn>
@@ -91,12 +76,7 @@
     <v-row>
       <v-col v-for="data of groupedData" :key="data._id" cols="12">
         <v-row justify="center">
-          <v-col
-            v-for="subData of data.groups"
-            :key="data._id + subData.group"
-            cols="12"
-            lg="7"
-          >
+          <v-col v-for="subData of data.groups" :key="data._id + subData.group" cols="12" lg="7">
             <v-row>
               <v-col>
                 <v-card class="text-center" elevation="5">
@@ -109,15 +89,7 @@
               <v-col cols="9">
                 <v-sheet color="transparent">
                   組員：
-                  <v-chip
-                    v-for="member of subData.members"
-                    :key="member.name"
-                    label
-                    color="blue-darken-2"
-                    density="compact"
-                    class="mr-1 mb-1"
-                    >{{ member.name }}</v-chip
-                  >
+                  <v-chip v-for="member of subData.members" :key="member.name" label color="blue-darken-2" density="compact" class="mr-1 mb-1">{{ member.name }}</v-chip>
                 </v-sheet>
                 <v-sheet color="transparent">
                   收到的瓜：{{ totalQty(data._id, subData.group) }}
@@ -141,15 +113,11 @@
                 <v-sheet color="transparent"> 目前排名： </v-sheet>
               </v-col>
               <v-col>
-                <v-btn
-                  color="green"
-                  block
-                  @click="
-                    (isOpenDialog = true),
-                      (category = data._id),
-                      (group = subData.group)
-                  "
-                >
+                <v-btn color="green" block @click="
+                  (isOpenDialog = true),
+                  (category = data._id),
+                  (group = subData.group)
+                  ">
                   送瓜
                 </v-btn>
               </v-col>
@@ -175,67 +143,32 @@
             <v-card-text>
               <v-row dense class="mb-4" justify="center">
                 <v-col class="text-center" cols="12">
-                  <span
-                    class="text-h1 font-weight-bold text-blue"
-                    v-text="qty"
-                  ></span>
+                  <span class="text-h1 font-weight-bold text-blue" v-text="qty"></span>
                 </v-col>
                 <v-col cols="12" class="text-center">
-                  <span
-                    class="text-right subheading me-1"
-                    v-text="`瓜量 (${qty * 50}$)`"
-                  >
+                  <span class="text-right subheading me-1" v-text="`瓜量 (${qty * 50}$)`">
                   </span>
                 </v-col>
               </v-row>
 
-              <v-slider
-                v-model="qty"
-                :step="1"
-                max="50"
-                min="1"
-                track-color="grey"
-                color="blue"
-              >
+              <v-slider v-model="qty" :step="1" max="50" min="1" track-color="grey" color="blue">
                 <template v-slot:prepend>
-                  <v-btn
-                    color="blue"
-                    icon="mdi-minus"
-                    variant="text"
-                    :disabled="qty <= 1"
-                    @click="decrement"
-                  ></v-btn>
+                  <v-btn color="blue" icon="mdi-minus" variant="text" :disabled="qty <= 1" @click="decrement"></v-btn>
                 </template>
 
                 <template v-slot:append>
-                  <v-btn
-                    color="blue"
-                    icon="mdi-plus"
-                    variant="text"
-                    :disabled="qty >= 50"
-                    @click="increment"
-                  ></v-btn>
+                  <v-btn color="blue" icon="mdi-plus" variant="text" :disabled="qty >= 50" @click="increment"></v-btn>
                 </template>
               </v-slider>
             </v-card-text>
             <template v-slot:actions>
               <v-spacer></v-spacer>
 
-              <v-btn
-                @click="isOpenDialog = false"
-                color="red"
-                size="large"
-                :disabled="isLoadingSave"
-              >
+              <v-btn @click="isOpenDialog = false" color="red" size="large" :disabled="isLoadingSave">
                 取消
               </v-btn>
 
-              <v-btn
-                @click="isOpenConfirmDialog = true"
-                size="large"
-                color="green"
-                :loading="isLoadingSave"
-              >
+              <v-btn @click="isOpenConfirmDialog = true" size="large" color="green" :loading="isLoadingSave">
                 送出
               </v-btn>
             </template>
@@ -256,10 +189,7 @@
               <v-btn color="orange" @click="isOpenConfirmDialog = false">
                 先不要
               </v-btn>
-              <v-btn
-                color="green-darken-1"
-                @click="save(category, group), (isOpenConfirmDialog = false)"
-              >
+              <v-btn color="green-darken-1" @click="save(category, group), (isOpenConfirmDialog = false)">
                 確認
               </v-btn>
             </template>
@@ -280,12 +210,7 @@
       </v-card-text>
     </v-dialog>
 
-    <v-snackbar
-      v-model="isOpenSnackbar"
-      :timeout="5000"
-      location="top"
-      :color="colorSnackbar"
-    >
+    <v-snackbar v-model="isOpenSnackbar" :timeout="5000" location="top" :color="colorSnackbar">
       {{ message }}
 
       <template v-slot:actions>
@@ -298,34 +223,21 @@
         <v-row justify="center">
           <v-col cols="12" lg="6">
             <v-card>
-              <v-card-title
-                class="bg-amber d-flex justify-space-between align-center"
-              >
+              <v-card-title class="bg-amber d-flex justify-space-between align-center">
                 <div class="text-white text-h5 ps-2">
                   {{ `${category}` }}
                 </div>
 
-                <v-btn
-                  icon="mdi-close"
-                  variant="text"
-                  color="white"
-                  @click="isActive.value = false"
-                ></v-btn>
+                <v-btn icon="mdi-close" variant="text" color="white" @click="isActive.value = false"></v-btn>
               </v-card-title>
 
               <v-card-text>
                 <v-row dense>
                   <v-col cols="12">
-                    <apexchart
-                      height="200"
-                      type="pie"
-                      :options="
-                        category === '幼幼班'
-                          ? chartOptionsOne
-                          : chartOptionsTwo
-                      "
-                      :series="category === '幼幼班' ? seriesOne : seriesTwo"
-                    ></apexchart>
+                    <apexchart height="200" type="pie" :options="category === '幼幼班'
+                      ? chartOptionsOne
+                      : chartOptionsTwo
+                      " :series="category === '幼幼班' ? seriesOne : seriesTwo"></apexchart>
                   </v-col>
                   <v-col>
                     <h3>
@@ -336,32 +248,19 @@
                       公式：總瓜量 × 50 × (個人該組投資瓜量 ÷ 該組總瓜量)
                     </h5>
                   </v-col>
-                  <v-col
-                    cols="12"
-                    style="max-height: calc(100vh - 430px); overflow: auto"
-                  >
+                  <v-col cols="12" style="max-height: calc(100vh - 430px); overflow: auto">
                     <v-expansion-panels v-model="panel" multiple>
-                      <v-expansion-panel
-                        v-for="(team, index) of ['A', 'B', 'C', 'D', 'E', 'F']"
-                        :key="category + team"
-                        :value="team"
-                      >
+                      <v-expansion-panel v-for="(team, index) of
+                      ['A', 'B', 'C', 'D', 'E', 'F']" :key="category + team" :value="team">
+
                         <v-expansion-panel-title>
                           <v-row dense>
                             <v-col cols="10">
-                              <h2 >
+                              <h2>
                                 {{ team }}
-                                <v-chip
-                                  v-for="el of groupedData[
-                                    category === '幼幼班' ? 1 : 0
-                                  ].groups[index].members"
-                                  :key="el.name"
-                                  label
-                                  size="small"
-                                  :color="colors[index]"
-                                  class="mx-1"
-                                  >{{ el.name }}</v-chip
-                                >
+                                <v-chip v-for="el of groupedData[
+                                  category === '幼幼班' ? 1 : 0
+                                ].groups[index].members" :key="el.name" label size="small" :color="colors[index]" class="mx-1">{{ el.name }}</v-chip>
                               </h2>
                             </v-col>
                             <v-col class="text-right">
@@ -379,21 +278,16 @@
                         </v-expansion-panel-title>
                         <v-expansion-panel-text>
                           <v-list lines="one">
-                            <v-list-item
-                              v-for="n of (this.qtyGroupedData[category] &&
-                                this.qtyGroupedData[category][team] &&
-                                this.qtyGroupedData[category][team].members) ||
-                              []"
-                              :key="n"
-                            >
+                            <v-list-item v-for="n of (this.qtyGroupedData[category] &&
+                              this.qtyGroupedData[category][team] &&
+                              this.qtyGroupedData[category][team].members) ||
+                              []" :key="n">
                               <v-list-item-title>
                                 <v-row>
                                   <v-col>
-                                    <h4
-                                      :class="{
-                                        'text-blue': n.name === user.name,
-                                      }"
-                                    >
+                                    <h4 :class="{
+                                      'text-blue': n.name === user.name,
+                                    }">
                                       {{ n.name }}
                                       {{ n.name === user.name ? `(You)` : "" }}
                                     </h4>
@@ -623,7 +517,7 @@ export default {
           }, {});
           return pre;
         }, {});
-        for (const [index, group] of ["A", "B", "C", "D"].entries()) {
+        for (const [index, group] of ["A", "B", "C", "D", "E", "F"].entries()) {
           if (
             this.qtyGroupedData["幼幼班"] &&
             this.qtyGroupedData["幼幼班"][group]
@@ -634,7 +528,7 @@ export default {
             this.seriesOne[index] = 0;
           }
         }
-        for (const [index, group] of ["A", "B", "C", "D", "E"].entries()) {
+        for (const [index, group] of ["A", "B", "C", "D", "E", "F"].entries()) {
           if (
             this.qtyGroupedData["大班"] &&
             this.qtyGroupedData["大班"][group]

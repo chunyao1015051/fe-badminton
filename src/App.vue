@@ -9,12 +9,7 @@
       <template>
         <div class="text-center pa-4">
           <v-dialog v-model="isServerDisconnected" width="auto" persistent>
-            <v-card
-              max-width="400"
-              prepend-icon="mdi-heart-broken"
-              text="若看到這個訊息，請馬上連絡相關人員！"
-              title="伺服器斷線惹"
-            >
+            <v-card max-width="400" prepend-icon="mdi-heart-broken" text="若看到這個訊息，請馬上連絡相關人員！" title="伺服器斷線惹">
             </v-card>
           </v-dialog>
         </div>
