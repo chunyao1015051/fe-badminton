@@ -198,7 +198,7 @@
         <v-row justify="center">
           <v-col cols="12" lg="6">
             <v-card>
-              <v-card-title class="bg-blue text-white d-flex justify-space-between align-center">
+              <v-card-title class="bg-red-accent-2 text-white d-flex justify-space-between align-center">
                 更新賽事狀態
                 <v-btn icon="mdi-close" variant="text" color="white" @click="isActive.value = false"></v-btn>
               </v-card-title>
