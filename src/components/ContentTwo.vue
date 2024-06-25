@@ -62,14 +62,14 @@
           <!-- 左側三角形 -->
           <polygon points="100,150 150,250 50,250" stroke="black" stroke-width="2" fill="transparent" />
           <text x="85" y="145" font-family="Verdana" font-size="20" fill="black">A</text>
-          <text x="30" y="260" font-family="Verdana" font-size="20" fill="black">B</text>
-          <text x="155" y="260" font-family="Verdana" font-size="20" fill="black">C</text>
+          <text x="30" y="260" font-family="Verdana" font-size="20" fill="black">F</text>
+          <text x="155" y="260" font-family="Verdana" font-size="20" fill="black">E</text>
 
           <!-- 右側三角形 -->
           <polygon points="300,150 350,250 250,250" stroke="black" stroke-width="2" fill="transparent" />
           <text x="300" y="145" font-family="Verdana" font-size="20" fill="black">D</text>
-          <text x="230" y="260" font-family="Verdana" font-size="20" fill="black">E</text>
-          <text x="355" y="260" font-family="Verdana" font-size="20" fill="black">F</text>
+          <text x="230" y="260" font-family="Verdana" font-size="20" fill="black">C</text>
+          <text x="355" y="260" font-family="Verdana" font-size="20" fill="black">B</text>
 
           <!-- 連接圓形與三角形的線 -->
           <line x1="200" y1="70" x2="100" y2="150" stroke="black" stroke-width="2" />
