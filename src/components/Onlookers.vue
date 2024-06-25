@@ -112,7 +112,7 @@
                 </v-sheet>
                 <v-sheet color="transparent"> 目前排名： </v-sheet>
               </v-col>
-              <v-col v-if="!['wei'].includes(user.name)">
+              <!-- <v-col v-if="!['wei'].includes(user.name)">
                 <v-btn color="green" block @click="
                   (isOpenDialog = true),
                   (category = data._id),
@@ -120,7 +120,7 @@
                   ">
                   送瓜
                 </v-btn>
-              </v-col>
+              </v-col> -->
               <v-divider></v-divider>
             </v-row>
           </v-col>
