@@ -32,7 +32,7 @@
                       <v-col> 總瓜量： {{ qtyOne }} </v-col>
                     </v-row>
                   </v-list-item-title>
-                  <v-list-item-title>冠軍： --</v-list-item-title>
+                  <v-list-item-title>冠軍： B</v-list-item-title>
                 </v-list-item>
               </v-list>
               <template v-slot:actions>
@@ -56,7 +56,7 @@
               <v-list density="compact" class="mb-n5">
                 <v-list-item color="blue">
                   <v-list-item-title>總瓜量： {{ qtyTwo }}</v-list-item-title>
-                  <v-list-item-title>冠軍： --</v-list-item-title>
+                  <v-list-item-title>冠軍： D</v-list-item-title>
                 </v-list-item>
               </v-list>
               <template v-slot:actions>
